@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Records Registry</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --paper:#F6F3EC;
+    --card:#FFFFFF;
+    --ink:#1B2A4A;
+    --ink-soft:#4B5670;
+    --muted:#8B8578;
+    --line:#DCD6C8;
+    --maroon:#8B2635;
+    --maroon-deep:#6E1D2A;
+    --green:#3F6B4E;
+    --green-bg:#E7EFE8;
+    --amber:#A6621B;
+    --amber-bg:#F5EADA;
+    --red:#B23A34;
+    --red-bg:#F6E4E1;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;}
+  .app{
+    font-family:'Inter',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    min-height:100vh;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .display{font-family:'Fraunces',serif;}
+
+  .gate{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:40px 20px;
+    text-align:center;
+  }
+  .gate-mark{
+    width:56px;height:56px;border-radius:50%;
+    border:2px solid var(--maroon);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:22px;
+    color:var(--maroon);
+  }
+  .gate h1{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:34px;
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .gate p.sub{
+    color:var(--ink-soft);
+    font-size:15px;
+    margin:0 0 36px;
+    max-width:460px;
+    line-height:1.55;
+  }
+  .role-cards{
+    display:flex;gap:18px;flex-wrap:wrap;justify-content:center;
+    max-width:640px;
+  }
+  .role-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:26px 28px;
+    width:250px;
+    text-align:left;
+    cursor:pointer;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .role-card:hover{border-color:var(--maroon); transform:translateY(-2px);}
+  .role-card .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--maroon);
+    display:block;
+    margin-bottom:10px;
+  }
+  .role-card h3{
+    font-family:'Fraunces',serif;
+    font-size:20px;
+    font-weight:500;
+    margin:0 0 8px;
+  }
+  .role-card p{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin:0;
+    line-height:1.5;
+  }
+  .gate form{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:28px;
+    width:320px;
+    text-align:left;
+  }
+  .gate label{
+    display:block;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-bottom:6px;
+    font-weight:500;
+  }
+  .gate input[type=text], .gate input[type=password]{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-size:14px;
+    font-family:'Inter',sans-serif;
+    margin-bottom:14px;
+    background:#fff;
+    color:var(--ink);
+  }
+  .gate input:focus{outline:2px solid var(--maroon); outline-offset:1px;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    padding:10px 18px;
+    border-radius:8px;
+    border:1px solid var(--maroon);
+    background:var(--maroon);
+    color:#fff;
+    font-size:14px;
+    font-weight:500;
+    cursor:pointer;
+    font-family:'Inter',sans-serif;
+    width:100%;
+  }
+  .btn:hover{background:var(--maroon-deep);}
+  .btn:disabled{opacity:.6; cursor:default;}
+  .btn.secondary{background:transparent; color:var(--ink); border:1px solid var(--line);}
+  .btn.secondary:hover{border-color:var(--maroon); color:var(--maroon);}
+  .err-text{color:var(--red); font-size:12.5px; margin:-6px 0 12px;}
+  .back-link{margin-top:18px; font-size:13px; color:var(--ink-soft); cursor:pointer; text-decoration:underline;}
+
+  .setup-box{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:28px;
+    max-width:520px;
+    text-align:left;
+  }
+  .setup-box code{
+    background:#F0EBDF;
+    padding:2px 6px;
+    border-radius:4px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+  }
+
+  .topbar{
+    background:var(--ink);
+    color:#EFEAE0;
+    padding:16px 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .topbar .brand{display:flex;align-items:center;gap:12px;}
+  .topbar .brand-mark{
+    width:34px;height:34px;border-radius:50%;
+    border:1.5px solid #C9A66B;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-size:15px;color:#C9A66B;
+  }
+  .topbar h1{font-family:'Fraunces',serif; font-size:18px; font-weight:500; margin:0;}
+  .topbar .role-pill{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:#C9A66B;
+    display:block;
+    margin-top:1px;
+  }
+  .topbar-right{display:flex;align-items:center;gap:14px;}
+  .topbar-user{font-size:13px;color:#C7C2B6;}
+  .sync-dot{display:flex; align-items:center; gap:6px; font-size:12px; color:#C7C2B6;}
+  .sync-dot .dot{width:7px;height:7px;border-radius:50%;background:#6FBF8C;}
+  .signout{
+    font-size:13px; color:#EFEAE0;
+    border:1px solid rgba(255,255,255,.25);
+    background:transparent; padding:7px 14px; border-radius:7px;
+    cursor:pointer; font-family:'Inter',sans-serif;
+  }
+  .signout:hover{border-color:#C9A66B; color:#C9A66B;}
+
+  .main{max-width:1080px; margin:0 auto; padding:28px 32px 80px;}
+
+  .stats-row{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:22px;}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px;}
+  .stat .num{font-family:'Fraunces',serif; font-size:24px; font-weight:500;}
+  .stat .lbl{font-size:12px; color:var(--ink-soft); margin-top:2px;}
+
+  .controls{
+    display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    margin-bottom:18px; background:var(--card); border:1px solid var(--line);
+    border-radius:10px; padding:14px;
+  }
+  .controls input[type=text]{
+    flex:1; min-width:180px; padding:9px 12px; border:1px solid var(--line);
+    border-radius:7px; font-size:13.5px; font-family:'Inter',sans-serif; color:var(--ink);
+  }
+  .controls select{
+    padding:9px 10px; border:1px solid var(--line); border-radius:7px;
+    font-size:13px; font-family:'Inter',sans-serif; background:#fff; color:var(--ink);
+  }
+  .controls .spacer{flex:1;}
+  .add-btn{
+    padding:9px 16px; border-radius:7px; border:1px solid var(--maroon);
+    background:var(--maroon); color:#fff; font-size:13.5px; font-weight:500;
+    cursor:pointer; white-space:nowrap;
+  }
+  .add-btn:hover{background:var(--maroon-deep);}
+
+  .empty{
+    text-align:center; padding:60px 20px; color:var(--ink-soft);
+    background:var(--card); border:1px dashed var(--line); border-radius:12px;
+  }
+  .empty .display{font-size:18px; color:var(--ink); margin-bottom:6px;}
+
+  .card-list{display:flex; flex-direction:column; gap:10px;}
+  .rec-card{background:var(--card); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  .rec-head{display:flex; align-items:center; gap:16px; padding:14px 18px; cursor:pointer; flex-wrap:wrap;}
+  .rec-num{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--maroon);
+    background:#FBEFE9; padding:4px 9px; border-radius:6px; white-space:nowrap;
+  }
+  .rec-num.missing{color:var(--muted); background:#EFEBE1; font-style:italic;}
+  .rec-name{font-family:'Fraunces',serif; font-size:16.5px; font-weight:500; flex:1; min-width:120px;}
+  .rec-meta{font-size:12.5px; color:var(--ink-soft); white-space:nowrap;}
+  .doc-stamp{
+    display:flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace;
+    font-size:12px; padding:5px 10px; border-radius:20px; white-space:nowrap;
+  }
+  .doc-stamp.complete{background:var(--green-bg); color:var(--green);}
+  .doc-stamp.partial{background:var(--amber-bg); color:var(--amber);}
+  .doc-stamp.empty-stamp{background:var(--red-bg); color:var(--red);}
+  .chevron{color:var(--muted); font-size:14px; transition:transform .15s ease;}
+  .rec-card.open .chevron{transform:rotate(90deg);}
+
+  .rec-body{display:none; border-top:1px solid var(--line); padding:20px 18px 22px; background:#FCFAF5;}
+  .rec-card.open .rec-body{display:block;}
+
+  .detail-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px 22px; margin-bottom:20px;}
+  .detail-item .k{font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-bottom:3px;}
+  .detail-item .v{font-size:14px; color:var(--ink);}
+
+  .docs-section h4{font-family:'Fraunces',serif; font-size:14.5px; font-weight:500; margin:0 0 10px; color:var(--ink);}
+  .docs-grid{display:flex; flex-direction:column; gap:8px;}
+  .doc-row{
+    display:flex; align-items:center; gap:10px; padding:9px 12px;
+    background:#fff; border:1px solid var(--line); border-radius:8px; font-size:13px; flex-wrap:wrap;
+  }
+  .doc-row.checked{border-color:var(--green); background:var(--green-bg);}
+  .doc-check{
+    width:18px;height:18px; border-radius:4px; border:1.5px solid var(--muted);
+    display:flex;align-items:center;justify-content:center; flex-shrink:0;
+    cursor:pointer; font-size:11px; color:#fff;
+  }
+  .doc-row.checked .doc-check{background:var(--green); border-color:var(--green);}
+  .doc-row.view .doc-check{cursor:default;}
+  .doc-label{flex:1; min-width:140px;}
+  .doc-file-actions{display:flex; align-items:center; gap:8px; margin-left:auto;}
+  .doc-file-link{
+    font-size:12px; color:var(--maroon); text-decoration:underline; cursor:pointer;
+    display:flex; align-items:center; gap:4px; white-space:nowrap;
+  }
+  .doc-file-link:hover{color:var(--maroon-deep);}
+  .doc-upload-label{
+    font-size:12px; color:var(--ink-soft); border:1px solid var(--line);
+    padding:5px 10px; border-radius:6px; cursor:pointer; white-space:nowrap;
+  }
+  .doc-upload-label:hover{border-color:var(--maroon); color:var(--maroon);}
+  .doc-upload-label input{display:none;}
+  .doc-remove{font-size:11.5px; color:var(--red); cursor:pointer; text-decoration:underline; white-space:nowrap;}
+  .doc-uploading{font-size:12px; color:var(--amber);}
+
+  .rec-actions{margin-top:18px; display:flex; gap:10px;}
+  .mini-btn{
+    padding:7px 14px; border-radius:7px; font-size:12.5px; cursor:pointer;
+    font-family:'Inter',sans-serif; border:1px solid var(--line); background:#fff; color:var(--ink);
+  }
+  .mini-btn:hover{border-color:var(--maroon); color:var(--maroon);}
+  .mini-btn.danger:hover{border-color:var(--red); color:var(--red);}
+
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(27,42,74,.45);
+    display:none; align-items:flex-start; justify-content:center;
+    padding:40px 16px; overflow-y:auto; z-index:50;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal{background:#fff; border-radius:14px; width:100%; max-width:620px; padding:26px 28px 28px;}
+  .modal h2{font-family:'Fraunces',serif; font-size:20px; font-weight:500; margin:0 0 4px;}
+  .modal .modal-sub{font-size:13px; color:var(--ink-soft); margin:0 0 20px;}
+  .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px 16px; margin-bottom:18px;}
+  .form-grid .full{grid-column:1/-1;}
+  .field label{display:block; font-size:12px; color:var(--ink-soft); font-weight:500; margin-bottom:5px;}
+  .field .hint{font-weight:400; color:var(--muted); font-style:italic;}
+  .field input, .field select{
+    width:100%; padding:9px 11px; border:1px solid var(--line); border-radius:7px;
+    font-size:13.5px; font-family:'Inter',sans-serif; color:var(--ink); background:#fff;
+  }
+  .field input:focus, .field select:focus{outline:2px solid var(--maroon); outline-offset:1px;}
+  .modal-docs{border-top:1px solid var(--line); padding-top:16px; margin-bottom:20px;}
+  .modal-docs h4{font-family:'Fraunces',serif; font-size:14px; font-weight:500; margin:0 0 10px;}
+  .modal-actions{display:flex; gap:10px; justify-content:flex-end;}
+  .modal-actions .btn, .modal-actions .mini-btn{width:auto;}
+  .field-error{border-color:var(--red) !important;}
+  .form-err{font-size:12px; color:var(--red); margin-top:12px;}
+
+  @media(max-width:640px){
+    .form-grid{grid-template-columns:1fr;}
+    .main{padding:20px 16px 60px;}
+    .topbar{padding:14px 18px;}
+  }
+</style>
+</head>
+<body>
+<div id="app" class="app"></div>
+
+<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-storage-compat.js"></script>
+<script>
+
+// ============================================================
+// Firebase config for this project (student-registry-plm)
+// ============================================================
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyBT125INNpGRgb8KNlN7oUEdCOeaOA66o4",
+  authDomain: "student-registry-plm.firebaseapp.com",
+  databaseURL: "https://student-registry-plm-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "student-registry-plm",
+  storageBucket: "student-registry-plm.firebasestorage.app",
+  messagingSenderId: "579830425130",
+  appId: "1:579830425130:web:7d6b79d0b6c0a010f6c553",
+  measurementId: "G-2554R9V4N1"
+};
+
+const CONFIG_IS_PLACEHOLDER = FIREBASE_CONFIG.apiKey === "YOUR_API_KEY";
+
+let db = null;
+let storage = null;
+if(!CONFIG_IS_PLACEHOLDER){
+  firebase.initializeApp(FIREBASE_CONFIG);
+  db = firebase.firestore();
+  storage = firebase.storage();
+}
+
+const DOC_KEYS = [
+  {k:'biodata', l:'Biodata'},
+  {k:'birthCert', l:'Birth Certificate'},
+  {k:'appForm', l:'Application Form'},
+  {k:'tor', l:'TOR'},
+  {k:'permRecord', l:'Student Permanent Record'},
+  {k:'certCompletion', l:'Certificate of Completion'},
+  {k:'rleSummary', l:'RLE Summary'},
+  {k:'certGrades', l:'Certificate of Grades'}
+];
+
+let state = {
+  screen: CONFIG_IS_PLACEHOLDER ? 'setup' : 'role',
+  role:null,
+  viewerName:'',
+  students:[],
+  search:'',
+  filterSex:'all',
+  filterYear:'all',
+  filterDocs:'all',
+  sortKey:'name',
+  sortDir:'asc',
+  openId:null,
+  uploadingKey:null // `${studentId}:${docKey}` while a PDF is uploading
+};
+
+const root = document.getElementById('app');
+let unsubscribe = null;
+
+function emptyDocs(){
+  const d = {};
+  DOC_KEYS.forEach(dk => d[dk.k] = {checked:false, fileURL:null, fileName:null});
+  return d;
+}
+
+function normalizeDocs(raw){
+  const d = emptyDocs();
+  if(raw){
+    DOC_KEYS.forEach(dk => {
+      const v = raw[dk.k];
+      if(v && typeof v === 'object'){
+        d[dk.k] = {checked: !!v.checked, fileURL: v.fileURL||null, fileName: v.fileName||null};
+      } else if(v === true){
+        d[dk.k] = {checked:true, fileURL:null, fileName:null};
+      }
+    });
+  }
+  return d;
+}
+
+function docsCompleteCount(s){
+  return DOC_KEYS.filter(dk => s.documents && s.documents[dk.k] && s.documents[dk.k].checked).length;
+}
+
+function startListening(){
+  if(!db) return;
+  unsubscribe = db.collection('students').onSnapshot(snap => {
+    state.students = snap.docs.map(doc => {
+      const data = doc.data();
+      return {...data, id: doc.id, documents: normalizeDocs(data.documents)};
+    });
+    if(state.screen === 'dashboard') render();
+  }, err => {
+    console.error('Firestore listen error', err);
+  });
+}
+
+async function getAdminPass(){
+  const ref = db.collection('settings').doc('admin');
+  const snap = await ref.get();
+  return snap.exists ? snap.data().password : null;
+}
+async function setAdminPass(pw){
+  await db.collection('settings').doc('admin').set({password: pw});
+}
+
+function uid(){ return 'S' + Math.random().toString(36).slice(2,10); }
+
+function render(){
+  if(state.screen === 'setup') return renderSetup();
+  if(state.screen === 'role') return renderRole();
+  if(state.screen === 'adminLogin') return renderAdminLogin();
+  if(state.screen === 'viewerEntry') return renderViewerEntry();
+  if(state.screen === 'dashboard') return renderDashboard();
+}
+
+function renderSetup(){
+  root.innerHTML = `
+    <div class="gate">
+      <div class="gate-mark display">!</div>
+      <h1>Connect your database</h1>
+      <div class="setup-box">
+        <p style="margin-top:0;">This app needs a Firebase project to store records and PDFs. Open this HTML file in a text editor, find <code>FIREBASE_CONFIG</code> near the top of the script, and paste in the config values from your Firebase project (Project settings &gt; Your apps).</p>
+        <p style="margin-bottom:0;">Once that's saved, reload this page.</p>
+      </div>
+    </div>
+  `;
+}
+
+function renderRole(){
+  root.innerHTML = `
+    <div class="gate">
+      <div class="gate-mark display">R</div>
+      <h1>Student Records Registry</h1>
+      <p class="sub">A shared inventory of student information and document status. Choose how you're signing in.</p>
+      <div class="role-cards">
+        <div class="role-card" id="pick-admin">
+          <span class="tag">Registrar</span>
+          <h3>Admin</h3>
+          <p>Add, edit and update student records, upload documents, and manage the checklist. One admin account, password protected.</p>
+        </div>
+        <div class="role-card" id="pick-viewer">
+          <span class="tag">Read only</span>
+          <h3>Viewer</h3>
+          <p>Browse, search and view uploaded documents. No editing. Anyone can enter as a viewer.</p>
+        </div>
+      </div>
+    </div>
+  `;
+  document.getElementById('pick-admin').onclick = () => { state.screen='adminLogin'; state.loginErr=''; render(); };
+  document.getElementById('pick-viewer').onclick = () => { state.screen='viewerEntry'; state.loginErr=''; render(); };
+}
+
+function renderAdminLogin(){
+  root.innerHTML = `
+    <div class="gate">
+      <div class="gate-mark display">A</div>
+      <h1>Admin sign-in</h1>
+      <p class="sub">Enter the registrar password to edit records.</p>
+      <form id="admin-form">
+        <label for="pw">Password</label>
+        <input type="password" id="pw" placeholder="Enter password" autocomplete="current-password" />
+        ${state.loginErr ? `<div class="err-text">${state.loginErr}</div>` : ''}
+        <button type="submit" class="btn" id="admin-submit">Sign in</button>
+      </form>
+      <div class="back-link" id="back">Back</div>
+    </div>
+  `;
+  document.getElementById('back').onclick = () => { state.screen='role'; render(); };
+  document.getElementById('admin-form').onsubmit = async (e) => {
+    e.preventDefault();
+    const val = document.getElementById('pw').value;
+    if(!val){ state.loginErr = 'Enter a password.'; render(); return; }
+    const submitBtn = document.getElementById('admin-submit');
+    submitBtn.disabled = true; submitBtn.textContent = 'Checking...';
+    try{
+      let storedPass = await getAdminPass();
+      if(storedPass === null){
+        await setAdminPass(val);
+        enterDashboard('admin');
+        return;
+      }
+      if(val === storedPass){
+        enterDashboard('admin');
+      } else {
+        state.loginErr = "That password doesn't match. Try again.";
+        render();
+      }
+    }catch(err){
+      state.loginErr = "Couldn't reach the database. Check your connection.";
+      render();
+    }
+  };
+}
+
+function renderViewerEntry(){
+  root.innerHTML = `
+    <div class="gate">
+      <div class="gate-mark display">V</div>
+      <h1>Viewer sign-in</h1>
+      <p class="sub">Enter a display name to continue. No password needed — viewers can only look up records.</p>
+      <form id="viewer-form">
+        <label for="vname">Your name</label>
+        <input type="text" id="vname" placeholder="e.g. Juan Dela Cruz" autocomplete="name" />
+        ${state.loginErr ? `<div class="err-text">${state.loginErr}</div>` : ''}
+        <button type="submit" class="btn">Continue as viewer</button>
+      </form>
+      <div class="back-link" id="back">Back</div>
+    </div>
+  `;
+  document.getElementById('back').onclick = () => { state.screen='role'; render(); };
+  document.getElementById('viewer-form').onsubmit = (e) => {
+    e.preventDefault();
+    const val = document.getElementById('vname').value.trim();
+    if(!val){ state.loginErr = 'Enter a name to continue.'; render(); return; }
+    state.viewerName = val;
+    enterDashboard('viewer');
+  };
+}
+
+function enterDashboard(role){
+  state.role = role;
+  state.screen = 'dashboard';
+  state.loginErr='';
+  render();
+  startListening();
+}
+
+function getFilteredSorted(){
+  let list = [...state.students];
+  const q = state.search.trim().toLowerCase();
+  if(q){
+    list = list.filter(s =>
+      (s.name||'').toLowerCase().includes(q) ||
+      (s.studentNumber||'').toLowerCase().includes(q)
+    );
+  }
+  if(state.filterSex !== 'all') list = list.filter(s => s.sex === state.filterSex);
+  if(state.filterYear !== 'all') list = list.filter(s => String(s.yearAdmitted) === state.filterYear);
+  if(state.filterDocs !== 'all'){
+    list = list.filter(s => {
+      const c = docsCompleteCount(s);
+      if(state.filterDocs === 'complete') return c === DOC_KEYS.length;
+      if(state.filterDocs === 'partial') return c > 0 && c < DOC_KEYS.length;
+      if(state.filterDocs === 'none') return c === 0;
+      return true;
+    });
+  }
+  list.sort((a,b) => {
+    let av, bv;
+    if(state.sortKey === 'name'){ av=(a.name||'').toLowerCase(); bv=(b.name||'').toLowerCase(); }
+    else if(state.sortKey === 'studentNumber'){
+      av = a.studentNumber ? a.studentNumber.toLowerCase() : '\uffff';
+      bv = b.studentNumber ? b.studentNumber.toLowerCase() : '\uffff';
+    }
+    else if(state.sortKey === 'yearAdmitted'){ av=a.yearAdmitted||0; bv=b.yearAdmitted||0; }
+    else if(state.sortKey === 'yearGraduated'){ av=a.yearGraduated||0; bv=b.yearGraduated||0; }
+    else if(state.sortKey === 'docs'){ av=docsCompleteCount(a); bv=docsCompleteCount(b); }
+    if(av < bv) return state.sortDir === 'asc' ? -1 : 1;
+    if(av > bv) return state.sortDir === 'asc' ? 1 : -1;
+    return 0;
+  });
+  return list;
+}
+
+function getAdmittedYears(){
+  const years = new Set(state.students.map(s => s.yearAdmitted).filter(Boolean));
+  return [...years].sort((a,b) => b-a);
+}
+
+function renderDashboard(){
+  const list = getFilteredSorted();
+  const years = getAdmittedYears();
+  const isAdmin = state.role === 'admin';
+  const total = state.students.length;
+  const complete = state.students.filter(s => docsCompleteCount(s) === DOC_KEYS.length).length;
+  const incomplete = total - complete;
+
+  root.innerHTML = `
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark display">R</div>
+        <div>
+          <h1>Student Records Registry</h1>
+          <span class="role-pill">${isAdmin ? 'Admin · editing enabled' : 'Viewer · read only'}</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <span class="sync-dot"><span class="dot"></span>Synced</span>
+        ${!isAdmin ? `<span class="topbar-user">${escapeHtml(state.viewerName)}</span>` : ''}
+        <button class="signout" id="signout">Sign out</button>
+      </div>
+    </div>
+    <div class="main">
+      <div class="stats-row">
+        <div class="stat"><div class="num">${total}</div><div class="lbl">Total students</div></div>
+        <div class="stat"><div class="num">${complete}</div><div class="lbl">Complete records</div></div>
+        <div class="stat"><div class="num">${incomplete}</div><div class="lbl">Incomplete records</div></div>
+      </div>
+
+      <div class="controls">
+        <input type="text" id="search" placeholder="Search by name or student number" value="${escapeHtml(state.search)}" />
+        <select id="filterSex">
+          <option value="all">All sexes</option>
+          <option value="Male" ${state.filterSex==='Male'?'selected':''}>Male</option>
+          <option value="Female" ${state.filterSex==='Female'?'selected':''}>Female</option>
+        </select>
+        <select id="filterYear">
+          <option value="all">All years admitted</option>
+          ${years.map(y => `<option value="${y}" ${state.filterYear===String(y)?'selected':''}>${y}</option>`).join('')}
+        </select>
+        <select id="filterDocs">
+          <option value="all">All document statuses</option>
+          <option value="complete" ${state.filterDocs==='complete'?'selected':''}>Complete</option>
+          <option value="partial" ${state.filterDocs==='partial'?'selected':''}>Partial</option>
+          <option value="none" ${state.filterDocs==='none'?'selected':''}>None submitted</option>
+        </select>
+        <select id="sortKey">
+          <option value="name" ${state.sortKey==='name'?'selected':''}>Sort: Name</option>
+          <option value="studentNumber" ${state.sortKey==='studentNumber'?'selected':''}>Sort: Student number</option>
+          <option value="yearAdmitted" ${state.sortKey==='yearAdmitted'?'selected':''}>Sort: Year admitted</option>
+          <option value="yearGraduated" ${state.sortKey==='yearGraduated'?'selected':''}>Sort: Year graduated</option>
+          <option value="docs" ${state.sortKey==='docs'?'selected':''}>Sort: Documents complete</option>
+        </select>
+        <select id="sortDir">
+          <option value="asc" ${state.sortDir==='asc'?'selected':''}>Ascending</option>
+          <option value="desc" ${state.sortDir==='desc'?'selected':''}>Descending</option>
+        </select>
+        <div class="spacer"></div>
+        ${isAdmin ? `<button class="add-btn" id="add-student"><i class="ti ti-plus"></i> Add student</button>` : ''}
+      </div>
+
+      ${list.length === 0 ? `
+        <div class="empty">
+          <div class="display">No students found</div>
+          <div>${total === 0 ? 'The registry is empty.' + (isAdmin ? ' Add your first student to get started.' : '') : 'Try adjusting your search or filters.'}</div>
+        </div>
+      ` : `
+        <div class="card-list">
+          ${list.map(s => renderCard(s, isAdmin)).join('')}
+        </div>
+      `}
+    </div>
+    <div class="modal-overlay" id="modal-overlay">
+      <div class="modal" id="modal-content"></div>
+    </div>
+  `;
+
+  document.getElementById('signout').onclick = signOut;
+  document.getElementById('search').oninput = (e) => { state.search = e.target.value; render(); refocusSearch(); };
+  document.getElementById('filterSex').onchange = (e) => { state.filterSex = e.target.value; render(); };
+  document.getElementById('filterYear').onchange = (e) => { state.filterYear = e.target.value; render(); };
+  document.getElementById('filterDocs').onchange = (e) => { state.filterDocs = e.target.value; render(); };
+  document.getElementById('sortKey').onchange = (e) => { state.sortKey = e.target.value; render(); };
+  document.getElementById('sortDir').onchange = (e) => { state.sortDir = e.target.value; render(); };
+  if(isAdmin) document.getElementById('add-student').onclick = () => openModal(null);
+
+  list.forEach(s => {
+    const headEl = document.getElementById('head-'+s.id);
+    if(headEl) headEl.onclick = () => { state.openId = state.openId === s.id ? null : s.id; render(); };
+
+    DOC_KEYS.forEach(dk => {
+      const link = document.getElementById('view-'+s.id+'-'+dk.k);
+      if(link) link.onclick = (e) => { e.stopPropagation(); window.open(s.documents[dk.k].fileURL, '_blank', 'noopener'); };
+    });
+
+    if(isAdmin){
+      const editBtn = document.getElementById('edit-'+s.id);
+      if(editBtn) editBtn.onclick = (e) => { e.stopPropagation(); openModal(s.id); };
+      const delBtn = document.getElementById('del-'+s.id);
+      if(delBtn) delBtn.onclick = (e) => { e.stopPropagation(); deleteStudent(s.id); };
+      DOC_KEYS.forEach(dk => {
+        const box = document.getElementById('doc-'+s.id+'-'+dk.k);
+        if(box) box.onclick = (e) => {
+          e.stopPropagation();
+          toggleDocChecked(s, dk.k);
+        };
+        const fileInput = document.getElementById('file-'+s.id+'-'+dk.k);
+        if(fileInput) fileInput.onchange = (e) => {
+          e.stopPropagation();
+          const file = e.target.files[0];
+          if(file) uploadDoc(s, dk.k, file);
+        };
+        const removeBtn = document.getElementById('rm-'+s.id+'-'+dk.k);
+        if(removeBtn) removeBtn.onclick = (e) => { e.stopPropagation(); removeDoc(s, dk.k); };
+      });
+    }
+  });
+}
+
+function refocusSearch(){
+  const el = document.getElementById('search');
+  if(el){ el.focus(); const v = el.value; el.value=''; el.value=v; }
+}
+
+function renderCard(s, isAdmin){
+  const count = docsCompleteCount(s);
+  const total = DOC_KEYS.length;
+  const stampClass = count === total ? 'complete' : (count === 0 ? 'empty-stamp' : 'partial');
+  const open = state.openId === s.id;
+  return `
+    <div class="rec-card ${open?'open':''}">
+      <div class="rec-head" id="head-${s.id}">
+        <span class="rec-num mono ${s.studentNumber ? '' : 'missing'}">${s.studentNumber ? escapeHtml(s.studentNumber) : 'No student number'}</span>
+        <span class="rec-name">${escapeHtml(s.name||'Unnamed student')}</span>
+        <span class="rec-meta">${escapeHtml(s.sex||'—')} · Admitted ${s.yearAdmitted||'—'}</span>
+        <span class="doc-stamp ${stampClass}">${count}/${total} docs</span>
+        <span class="chevron"><i class="ti ti-chevron-right"></i></span>
+      </div>
+      <div class="rec-body">
+        ${renderDetailGrid(s)}
+        <div class="docs-section">
+          <h4>Document checklist</h4>
+          <div class="docs-grid">
+            ${DOC_KEYS.map(dk => renderDocRow(s, dk, isAdmin)).join('')}
+          </div>
+        </div>
+        ${isAdmin ? `
+          <div class="rec-actions">
+            <button class="mini-btn" id="edit-${s.id}"><i class="ti ti-edit"></i> Edit record</button>
+            <button class="mini-btn danger" id="del-${s.id}"><i class="ti ti-trash"></i> Delete record</button>
+          </div>
+        ` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function renderDocRow(s, dk, isAdmin){
+  const doc = s.documents[dk.k];
+  const checked = doc.checked;
+  const uploadKey = s.id + ':' + dk.k;
+  const isUploading = state.uploadingKey === uploadKey;
+  return `
+    <div class="doc-row ${checked?'checked':''} ${isAdmin?'':'view'}">
+      <span class="doc-check" id="${isAdmin? 'doc-'+s.id+'-'+dk.k : ''}">${checked?'<i class="ti ti-check"></i>':''}</span>
+      <span class="doc-label">${dk.l}</span>
+      <div class="doc-file-actions">
+        ${doc.fileURL ? `<span class="doc-file-link" id="view-${s.id}-${dk.k}"><i class="ti ti-file-type-pdf"></i> ${escapeHtml(doc.fileName||'View PDF')}</span>` : ''}
+        ${isAdmin && isUploading ? `<span class="doc-uploading">Uploading…</span>` : ''}
+        ${isAdmin && !isUploading ? `
+          <label class="doc-upload-label" for="file-${s.id}-${dk.k}">${doc.fileURL ? 'Replace' : 'Upload PDF'}</label>
+          <input type="file" accept="application/pdf" id="file-${s.id}-${dk.k}" />
+        ` : ''}
+        ${isAdmin && doc.fileURL && !isUploading ? `<span class="doc-remove" id="rm-${s.id}-${dk.k}">Remove</span>` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function renderDetailGrid(s){
+  const items = [
+    ['Sex', s.sex], ['Date of birth', s.dob], ['Contact number', s.contactNumber],
+    ['Email address', s.email], ['Provincial address', s.provincialAddress],
+    ['City address', s.cityAddress], ['Year admitted', s.yearAdmitted],
+    ['Year of residency', s.yearResidency], ['Year graduated', s.yearGraduated],
+  ];
+  return `<div class="detail-grid">
+    ${items.map(([k,v]) => `
+      <div class="detail-item">
+        <div class="k">${k}</div>
+        <div class="v">${v ? escapeHtml(String(v)) : '—'}</div>
+      </div>
+    `).join('')}
+  </div>`;
+}
+
+async function toggleDocChecked(s, key){
+  const newDocs = {...s.documents, [key]: {...s.documents[key], checked: !s.documents[key].checked}};
+  try{
+    await db.collection('students').doc(s.id).update({documents: newDocs});
+  }catch(err){ console.error('update failed', err); }
+}
+
+async function uploadDoc(s, key, file){
+  if(file.type !== 'application/pdf'){
+    alert('Please choose a PDF file.');
+    return;
+  }
+  const uploadKey = s.id + ':' + key;
+  state.uploadingKey = uploadKey;
+  render();
+  try{
+    const path = `documents/${s.id}/${key}/${Date.now()}_${file.name}`;
+    const ref = storage.ref().child(path);
+    await ref.put(file);
+    const url = await ref.getDownloadURL();
+    const newDocs = {...s.documents, [key]: {checked:true, fileURL:url, fileName:file.name}};
+    await db.collection('students').doc(s.id).update({documents: newDocs});
+  }catch(err){
+    console.error('upload failed', err);
+    alert("Couldn't upload that file. Check your Storage rules and connection.");
+  }
+  state.uploadingKey = null;
+  render();
+}
+
+async function removeDoc(s, key){
+  const doc = s.documents[key];
+  try{
+    if(doc.fileURL){
+      try{ await storage.refFromURL(doc.fileURL).delete(); }catch(e){}
+    }
+    const newDocs = {...s.documents, [key]: {checked:false, fileURL:null, fileName:null}};
+    await db.collection('students').doc(s.id).update({documents: newDocs});
+  }catch(err){ console.error('remove failed', err); }
+}
+
+async function deleteStudent(id){
+  try{ await db.collection('students').doc(id).delete(); }
+  catch(err){ console.error('delete failed', err); }
+}
+
+function openModal(id){
+  const s = id ? state.students.find(x => x.id === id) : {
+    id: uid(), studentNumber:'', name:'', sex:'', dob:'', contactNumber:'', email:'',
+    provincialAddress:'', cityAddress:'', yearAdmitted:'', yearResidency:'', yearGraduated:'',
+    documents: emptyDocs()
+  };
+  const overlay = document.getElementById('modal-overlay');
+  const content = document.getElementById('modal-content');
+  content.innerHTML = renderModalForm(s, !!id);
+  overlay.classList.add('open');
+  document.getElementById('modal-close').onclick = closeModal;
+  overlay.onclick = (e) => { if(e.target === overlay) closeModal(); };
+  document.getElementById('student-form').onsubmit = (e) => {
+    e.preventDefault();
+    saveFromForm(s, !!id);
+  };
+}
+
+function renderModalForm(s, isEdit){
+  return `
+    <h2>${isEdit ? 'Edit student record' : 'Add student record'}</h2>
+    <p class="modal-sub">${isEdit ? "Update this student's information." : "Fill in the student's information below. Document uploads are managed from the record card after saving."}</p>
+    <form id="student-form">
+      <div class="form-grid">
+        <div class="field"><label>Student number <span class="hint">(optional)</span></label><input type="text" id="f-studentNumber" value="${escapeAttr(s.studentNumber)}" placeholder="2024-00123" /></div>
+        <div class="field"><label>Full name</label><input type="text" id="f-name" value="${escapeAttr(s.name)}" placeholder="Dela Cruz, Juan" /></div>
+        <div class="field"><label>Sex</label>
+          <select id="f-sex">
+            <option value="" ${!s.sex?'selected':''}>Select</option>
+            <option value="Male" ${s.sex==='Male'?'selected':''}>Male</option>
+            <option value="Female" ${s.sex==='Female'?'selected':''}>Female</option>
+          </select>
+        </div>
+        <div class="field"><label>Date of birth</label><input type="date" id="f-dob" value="${escapeAttr(s.dob)}" /></div>
+        <div class="field"><label>Contact number</label><input type="text" id="f-contactNumber" value="${escapeAttr(s.contactNumber)}" placeholder="09XX XXX XXXX" /></div>
+        <div class="field"><label>Email address</label><input type="text" id="f-email" value="${escapeAttr(s.email)}" placeholder="name@email.com" /></div>
+        <div class="field full"><label>Provincial address</label><input type="text" id="f-provincialAddress" value="${escapeAttr(s.provincialAddress)}" /></div>
+        <div class="field full"><label>City address</label><input type="text" id="f-cityAddress" value="${escapeAttr(s.cityAddress)}" /></div>
+        <div class="field"><label>Year admitted</label><input type="text" id="f-yearAdmitted" value="${escapeAttr(s.yearAdmitted)}" placeholder="2021" /></div>
+        <div class="field"><label>Year of residency</label><input type="text" id="f-yearResidency" value="${escapeAttr(s.yearResidency)}" placeholder="2023" /></div>
+        <div class="field"><label>Year graduated</label><input type="text" id="f-yearGraduated" value="${escapeAttr(s.yearGraduated)}" placeholder="2025" /></div>
+      </div>
+      <div id="form-err-holder"></div>
+      <div class="modal-actions">
+        <button type="button" class="mini-btn" id="modal-close">Cancel</button>
+        <button type="submit" class="btn" style="width:auto;">${isEdit ? 'Save changes' : 'Add student'}</button>
+      </div>
+    </form>
+  `;
+}
+
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+async function saveFromForm(s, isEdit){
+  const val = id => document.getElementById(id).value.trim();
+  const studentNumber = val('f-studentNumber');
+  const name = val('f-name');
+
+  const errHolder = document.getElementById('form-err-holder');
+  document.getElementById('f-name').classList.remove('field-error');
+  document.getElementById('f-studentNumber').classList.remove('field-error');
+
+  if(!name){
+    errHolder.innerHTML = `<div class="form-err">Full name is required.</div>`;
+    document.getElementById('f-name').classList.add('field-error');
+    return;
+  }
+
+  if(studentNumber){
+    const dupe = state.students.find(x => x.studentNumber === studentNumber && x.id !== s.id);
+    if(dupe){
+      errHolder.innerHTML = `<div class="form-err">That student number is already in use.</div>`;
+      document.getElementById('f-studentNumber').classList.add('field-error');
+      return;
+    }
+  }
+
+  const data = {
+    studentNumber, name,
+    sex: document.getElementById('f-sex').value,
+    dob: document.getElementById('f-dob').value,
+    contactNumber: val('f-contactNumber'),
+    email: val('f-email'),
+    provincialAddress: val('f-provincialAddress'),
+    cityAddress: val('f-cityAddress'),
+    yearAdmitted: val('f-yearAdmitted'),
+    yearResidency: val('f-yearResidency'),
+    yearGraduated: val('f-yearGraduated'),
+    documents: s.documents
+  };
+
+  try{
+    await db.collection('students').doc(s.id).set(data, {merge:true});
+    closeModal();
+  }catch(err){
+    errHolder.innerHTML = `<div class="form-err">Couldn't save — check your connection and try again.</div>`;
+  }
+}
+
+function signOut(){
+  if(unsubscribe){ unsubscribe(); unsubscribe = null; }
+  state.role = null;
+  state.viewerName = '';
+  state.screen = 'role';
+  state.openId = null;
+  state.search='';
+  state.filterSex='all';
+  state.filterYear='all';
+  state.filterDocs='all';
+  render();
+}
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function escapeAttr(str){ return escapeHtml(str||''); }
+
+render();
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+</body>
+</html>
