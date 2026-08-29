@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Student Records Registry</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
@@ -26,181 +26,43 @@
   }
   *{box-sizing:border-box;}
   body{margin:0;}
-  .app{
-    font-family:'Inter',sans-serif;
-    background:var(--paper);
-    color:var(--ink);
-    min-height:100vh;
-  }
+  .app{font-family:'Inter',sans-serif; background:var(--paper); color:var(--ink); min-height:100vh;}
   .mono{font-family:'IBM Plex Mono',monospace;}
   .display{font-family:'Fraunces',serif;}
 
-  .gate{
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    padding:40px 20px;
-    text-align:center;
-  }
-  .gate-mark{
-    width:56px;height:56px;border-radius:50%;
-    border:2px solid var(--maroon);
-    display:flex;align-items:center;justify-content:center;
-    margin-bottom:22px;
-    color:var(--maroon);
-  }
-  .gate h1{
-    font-family:'Fraunces',serif;
-    font-weight:500;
-    font-size:34px;
-    margin:0 0 8px;
-    letter-spacing:-0.01em;
-  }
-  .gate p.sub{
-    color:var(--ink-soft);
-    font-size:15px;
-    margin:0 0 36px;
-    max-width:460px;
-    line-height:1.55;
-  }
-  .role-cards{
-    display:flex;gap:18px;flex-wrap:wrap;justify-content:center;
-    max-width:640px;
-  }
-  .role-card{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:26px 28px;
-    width:250px;
-    text-align:left;
-    cursor:pointer;
-    transition:border-color .15s ease, transform .15s ease;
-  }
+  .gate{min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 20px; text-align:center;}
+  .gate-mark{width:56px;height:56px;border-radius:50%; border:2px solid var(--maroon); display:flex;align-items:center;justify-content:center; margin-bottom:22px; color:var(--maroon);}
+  .gate h1{font-family:'Fraunces',serif; font-weight:500; font-size:34px; margin:0 0 8px; letter-spacing:-0.01em;}
+  .gate p.sub{color:var(--ink-soft); font-size:15px; margin:0 0 36px; max-width:460px; line-height:1.55;}
+  .role-cards{display:flex;gap:18px;flex-wrap:wrap;justify-content:center; max-width:640px;}
+  .role-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:26px 28px; width:250px; text-align:left; cursor:pointer; transition:border-color .15s ease, transform .15s ease;}
   .role-card:hover{border-color:var(--maroon); transform:translateY(-2px);}
-  .role-card .tag{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:11px;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    color:var(--maroon);
-    display:block;
-    margin-bottom:10px;
-  }
-  .role-card h3{
-    font-family:'Fraunces',serif;
-    font-size:20px;
-    font-weight:500;
-    margin:0 0 8px;
-  }
-  .role-card p{
-    font-size:13px;
-    color:var(--ink-soft);
-    margin:0;
-    line-height:1.5;
-  }
-  .gate form{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:28px;
-    width:320px;
-    text-align:left;
-  }
-  .gate label{
-    display:block;
-    font-size:12px;
-    color:var(--ink-soft);
-    margin-bottom:6px;
-    font-weight:500;
-  }
-  .gate input[type=text], .gate input[type=password]{
-    width:100%;
-    padding:10px 12px;
-    border:1px solid var(--line);
-    border-radius:8px;
-    font-size:14px;
-    font-family:'Inter',sans-serif;
-    margin-bottom:14px;
-    background:#fff;
-    color:var(--ink);
-  }
+  .role-card .tag{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--maroon); display:block; margin-bottom:10px;}
+  .role-card h3{font-family:'Fraunces',serif; font-size:20px; font-weight:500; margin:0 0 8px;}
+  .role-card p{font-size:13px; color:var(--ink-soft); margin:0; line-height:1.5;}
+  .gate form{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:28px; width:320px; text-align:left;}
+  .gate label{display:block; font-size:12px; color:var(--ink-soft); margin-bottom:6px; font-weight:500;}
+  .gate input[type=text], .gate input[type=password]{width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:8px; font-size:14px; font-family:'Inter',sans-serif; margin-bottom:14px; background:#fff; color:var(--ink);}
   .gate input:focus{outline:2px solid var(--maroon); outline-offset:1px;}
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:6px;
-    padding:10px 18px;
-    border-radius:8px;
-    border:1px solid var(--maroon);
-    background:var(--maroon);
-    color:#fff;
-    font-size:14px;
-    font-weight:500;
-    cursor:pointer;
-    font-family:'Inter',sans-serif;
-    width:100%;
-  }
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px; padding:10px 18px; border-radius:8px; border:1px solid var(--maroon); background:var(--maroon); color:#fff; font-size:14px; font-weight:500; cursor:pointer; font-family:'Inter',sans-serif; width:100%;}
   .btn:hover{background:var(--maroon-deep);}
   .btn:disabled{opacity:.6; cursor:default;}
-  .btn.secondary{background:transparent; color:var(--ink); border:1px solid var(--line);}
-  .btn.secondary:hover{border-color:var(--maroon); color:var(--maroon);}
   .err-text{color:var(--red); font-size:12.5px; margin:-6px 0 12px;}
   .back-link{margin-top:18px; font-size:13px; color:var(--ink-soft); cursor:pointer; text-decoration:underline;}
 
-  .setup-box{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:28px;
-    max-width:520px;
-    text-align:left;
-  }
-  .setup-box code{
-    background:#F0EBDF;
-    padding:2px 6px;
-    border-radius:4px;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:13px;
-  }
+  .setup-box{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:28px; max-width:520px; text-align:left;}
+  .setup-box code{background:#F0EBDF; padding:2px 6px; border-radius:4px; font-family:'IBM Plex Mono',monospace; font-size:13px;}
 
-  .topbar{
-    background:var(--ink);
-    color:#EFEAE0;
-    padding:16px 32px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:12px;
-  }
+  .topbar{background:var(--ink); color:#EFEAE0; padding:16px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;}
   .topbar .brand{display:flex;align-items:center;gap:12px;}
-  .topbar .brand-mark{
-    width:34px;height:34px;border-radius:50%;
-    border:1.5px solid #C9A66B;
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Fraunces',serif;font-size:15px;color:#C9A66B;
-  }
+  .topbar .brand-mark{width:34px;height:34px;border-radius:50%; border:1.5px solid #C9A66B; display:flex;align-items:center;justify-content:center; font-family:'Fraunces',serif;font-size:15px;color:#C9A66B;}
   .topbar h1{font-family:'Fraunces',serif; font-size:18px; font-weight:500; margin:0;}
-  .topbar .role-pill{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:10.5px;
-    letter-spacing:.06em;
-    text-transform:uppercase;
-    color:#C9A66B;
-    display:block;
-    margin-top:1px;
-  }
+  .topbar .role-pill{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#C9A66B; display:block; margin-top:1px;}
   .topbar-right{display:flex;align-items:center;gap:14px;}
   .topbar-user{font-size:13px;color:#C7C2B6;}
   .sync-dot{display:flex; align-items:center; gap:6px; font-size:12px; color:#C7C2B6;}
   .sync-dot .dot{width:7px;height:7px;border-radius:50%;background:#6FBF8C;}
-  .signout{
-    font-size:13px; color:#EFEAE0;
-    border:1px solid rgba(255,255,255,.25);
-    background:transparent; padding:7px 14px; border-radius:7px;
-    cursor:pointer; font-family:'Inter',sans-serif;
-  }
+  .signout{font-size:13px; color:#EFEAE0; border:1px solid rgba(255,255,255,.25); background:transparent; padding:7px 14px; border-radius:7px; cursor:pointer; font-family:'Inter',sans-serif;}
   .signout:hover{border-color:#C9A66B; color:#C9A66B;}
 
   .main{max-width:1080px; margin:0 auto; padding:28px 32px 80px;}
@@ -210,47 +72,24 @@
   .stat .num{font-family:'Fraunces',serif; font-size:24px; font-weight:500;}
   .stat .lbl{font-size:12px; color:var(--ink-soft); margin-top:2px;}
 
-  .controls{
-    display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-    margin-bottom:18px; background:var(--card); border:1px solid var(--line);
-    border-radius:10px; padding:14px;
-  }
-  .controls input[type=text]{
-    flex:1; min-width:180px; padding:9px 12px; border:1px solid var(--line);
-    border-radius:7px; font-size:13.5px; font-family:'Inter',sans-serif; color:var(--ink);
-  }
-  .controls select{
-    padding:9px 10px; border:1px solid var(--line); border-radius:7px;
-    font-size:13px; font-family:'Inter',sans-serif; background:#fff; color:var(--ink);
-  }
+  .controls{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:18px; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px;}
+  .controls input[type=text]{flex:1; min-width:180px; padding:9px 12px; border:1px solid var(--line); border-radius:7px; font-size:13.5px; font-family:'Inter',sans-serif; color:var(--ink);}
+  .controls select{padding:9px 10px; border:1px solid var(--line); border-radius:7px; font-size:13px; font-family:'Inter',sans-serif; background:#fff; color:var(--ink);}
   .controls .spacer{flex:1;}
-  .add-btn{
-    padding:9px 16px; border-radius:7px; border:1px solid var(--maroon);
-    background:var(--maroon); color:#fff; font-size:13.5px; font-weight:500;
-    cursor:pointer; white-space:nowrap;
-  }
+  .add-btn{padding:9px 16px; border-radius:7px; border:1px solid var(--maroon); background:var(--maroon); color:#fff; font-size:13.5px; font-weight:500; cursor:pointer; white-space:nowrap;}
   .add-btn:hover{background:var(--maroon-deep);}
 
-  .empty{
-    text-align:center; padding:60px 20px; color:var(--ink-soft);
-    background:var(--card); border:1px dashed var(--line); border-radius:12px;
-  }
+  .empty{text-align:center; padding:60px 20px; color:var(--ink-soft); background:var(--card); border:1px dashed var(--line); border-radius:12px;}
   .empty .display{font-size:18px; color:var(--ink); margin-bottom:6px;}
 
   .card-list{display:flex; flex-direction:column; gap:10px;}
   .rec-card{background:var(--card); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
   .rec-head{display:flex; align-items:center; gap:16px; padding:14px 18px; cursor:pointer; flex-wrap:wrap;}
-  .rec-num{
-    font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--maroon);
-    background:#FBEFE9; padding:4px 9px; border-radius:6px; white-space:nowrap;
-  }
+  .rec-num{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--maroon); background:#FBEFE9; padding:4px 9px; border-radius:6px; white-space:nowrap;}
   .rec-num.missing{color:var(--muted); background:#EFEBE1; font-style:italic;}
   .rec-name{font-family:'Fraunces',serif; font-size:16.5px; font-weight:500; flex:1; min-width:120px;}
   .rec-meta{font-size:12.5px; color:var(--ink-soft); white-space:nowrap;}
-  .doc-stamp{
-    display:flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace;
-    font-size:12px; padding:5px 10px; border-radius:20px; white-space:nowrap;
-  }
+  .doc-stamp{display:flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:12px; padding:5px 10px; border-radius:20px; white-space:nowrap;}
   .doc-stamp.complete{background:var(--green-bg); color:var(--green);}
   .doc-stamp.partial{background:var(--amber-bg); color:var(--amber);}
   .doc-stamp.empty-stamp{background:var(--red-bg); color:var(--red);}
@@ -266,47 +105,27 @@
 
   .docs-section h4{font-family:'Fraunces',serif; font-size:14.5px; font-weight:500; margin:0 0 10px; color:var(--ink);}
   .docs-grid{display:flex; flex-direction:column; gap:8px;}
-  .doc-row{
-    display:flex; align-items:center; gap:10px; padding:9px 12px;
-    background:#fff; border:1px solid var(--line); border-radius:8px; font-size:13px; flex-wrap:wrap;
-  }
+  .doc-row{display:flex; align-items:center; gap:10px; padding:9px 12px; background:#fff; border:1px solid var(--line); border-radius:8px; font-size:13px; flex-wrap:wrap;}
   .doc-row.checked{border-color:var(--green); background:var(--green-bg);}
-  .doc-check{
-    width:18px;height:18px; border-radius:4px; border:1.5px solid var(--muted);
-    display:flex;align-items:center;justify-content:center; flex-shrink:0;
-    cursor:pointer; font-size:11px; color:#fff;
-  }
+  .doc-check{width:18px;height:18px; border-radius:4px; border:1.5px solid var(--muted); display:flex;align-items:center;justify-content:center; flex-shrink:0; cursor:pointer; font-size:11px; color:#fff;}
   .doc-row.checked .doc-check{background:var(--green); border-color:var(--green);}
   .doc-row.view .doc-check{cursor:default;}
   .doc-label{flex:1; min-width:140px;}
   .doc-file-actions{display:flex; align-items:center; gap:8px; margin-left:auto;}
-  .doc-file-link{
-    font-size:12px; color:var(--maroon); text-decoration:underline; cursor:pointer;
-    display:flex; align-items:center; gap:4px; white-space:nowrap;
-  }
+  .doc-file-link{font-size:12px; color:var(--maroon); text-decoration:underline; cursor:pointer; display:flex; align-items:center; gap:4px; white-space:nowrap;}
   .doc-file-link:hover{color:var(--maroon-deep);}
-  .doc-upload-label{
-    font-size:12px; color:var(--ink-soft); border:1px solid var(--line);
-    padding:5px 10px; border-radius:6px; cursor:pointer; white-space:nowrap;
-  }
+  .doc-upload-label{font-size:12px; color:var(--ink-soft); border:1px solid var(--line); padding:5px 10px; border-radius:6px; cursor:pointer; white-space:nowrap;}
   .doc-upload-label:hover{border-color:var(--maroon); color:var(--maroon);}
   .doc-upload-label input{display:none;}
   .doc-remove{font-size:11.5px; color:var(--red); cursor:pointer; text-decoration:underline; white-space:nowrap;}
   .doc-uploading{font-size:12px; color:var(--amber);}
 
   .rec-actions{margin-top:18px; display:flex; gap:10px;}
-  .mini-btn{
-    padding:7px 14px; border-radius:7px; font-size:12.5px; cursor:pointer;
-    font-family:'Inter',sans-serif; border:1px solid var(--line); background:#fff; color:var(--ink);
-  }
+  .mini-btn{padding:7px 14px; border-radius:7px; font-size:12.5px; cursor:pointer; font-family:'Inter',sans-serif; border:1px solid var(--line); background:#fff; color:var(--ink);}
   .mini-btn:hover{border-color:var(--maroon); color:var(--maroon);}
   .mini-btn.danger:hover{border-color:var(--red); color:var(--red);}
 
-  .modal-overlay{
-    position:fixed; inset:0; background:rgba(27,42,74,.45);
-    display:none; align-items:flex-start; justify-content:center;
-    padding:40px 16px; overflow-y:auto; z-index:50;
-  }
+  .modal-overlay{position:fixed; inset:0; background:rgba(27,42,74,.45); display:none; align-items:flex-start; justify-content:center; padding:40px 16px; overflow-y:auto; z-index:50;}
   .modal-overlay.open{display:flex;}
   .modal{background:#fff; border-radius:14px; width:100%; max-width:620px; padding:26px 28px 28px;}
   .modal h2{font-family:'Fraunces',serif; font-size:20px; font-weight:500; margin:0 0 4px;}
@@ -315,13 +134,8 @@
   .form-grid .full{grid-column:1/-1;}
   .field label{display:block; font-size:12px; color:var(--ink-soft); font-weight:500; margin-bottom:5px;}
   .field .hint{font-weight:400; color:var(--muted); font-style:italic;}
-  .field input, .field select{
-    width:100%; padding:9px 11px; border:1px solid var(--line); border-radius:7px;
-    font-size:13.5px; font-family:'Inter',sans-serif; color:var(--ink); background:#fff;
-  }
+  .field input, .field select{width:100%; padding:9px 11px; border:1px solid var(--line); border-radius:7px; font-size:13.5px; font-family:'Inter',sans-serif; color:var(--ink); background:#fff;}
   .field input:focus, .field select:focus{outline:2px solid var(--maroon); outline-offset:1px;}
-  .modal-docs{border-top:1px solid var(--line); padding-top:16px; margin-bottom:20px;}
-  .modal-docs h4{font-family:'Fraunces',serif; font-size:14px; font-weight:500; margin:0 0 10px;}
   .modal-actions{display:flex; gap:10px; justify-content:flex-end;}
   .modal-actions .btn, .modal-actions .mini-btn{width:auto;}
   .field-error{border-color:var(--red) !important;}
@@ -337,34 +151,23 @@
 <body>
 <div id="app" class="app"></div>
 
-<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-storage-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 
 // ============================================================
-// Firebase config for this project (student-registry-plm)
+// PASTE YOUR SUPABASE PROJECT URL AND ANON KEY HERE
+// (Supabase dashboard > Project Settings > API)
 // ============================================================
-const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyBT125INNpGRgb8KNlN7oUEdCOeaOA66o4",
-  authDomain: "student-registry-plm.firebaseapp.com",
-  databaseURL: "https://student-registry-plm-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "student-registry-plm",
-  storageBucket: "student-registry-plm.firebasestorage.app",
-  messagingSenderId: "579830425130",
-  appId: "1:579830425130:web:7d6b79d0b6c0a010f6c553",
-  measurementId: "G-2554R9V4N1"
-};
+const SUPABASE_URL = "https://plqrnjfcbbqdchisdcvf.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_WhSpvg7C8PQXynVSTmF2Lg_fGN7-u2z";
 
-const CONFIG_IS_PLACEHOLDER = FIREBASE_CONFIG.apiKey === "YOUR_API_KEY";
-const ADMIN_PASSWORD = "AdminLangPwede";
+const CONFIG_IS_PLACEHOLDER = SUPABASE_URL === "https://plqrnjfcbbqdchisdcvf.supabase.co";
+const ADMIN_PASSWORD = "jianneblanco";
+const STORAGE_BUCKET = "documents";
 
-let db = null;
-let storage = null;
+let sb = null;
 if(!CONFIG_IS_PLACEHOLDER){
-  firebase.initializeApp(FIREBASE_CONFIG);
-  db = firebase.firestore();
-  storage = firebase.storage();
+  sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 }
 
 const DOC_KEYS = [
@@ -390,15 +193,16 @@ let state = {
   sortKey:'name',
   sortDir:'asc',
   openId:null,
-  uploadingKey:null // `${studentId}:${docKey}` while a PDF is uploading
+  uploadingKey:null,
+  loginErr:''
 };
 
 const root = document.getElementById('app');
-let unsubscribe = null;
+let channel = null;
 
 function emptyDocs(){
   const d = {};
-  DOC_KEYS.forEach(dk => d[dk.k] = {checked:false, fileURL:null, fileName:null});
+  DOC_KEYS.forEach(dk => d[dk.k] = {checked:false, fileURL:null, fileName:null, filePath:null});
   return d;
 }
 
@@ -408,9 +212,9 @@ function normalizeDocs(raw){
     DOC_KEYS.forEach(dk => {
       const v = raw[dk.k];
       if(v && typeof v === 'object'){
-        d[dk.k] = {checked: !!v.checked, fileURL: v.fileURL||null, fileName: v.fileName||null};
+        d[dk.k] = {checked: !!v.checked, fileURL: v.fileURL||null, fileName: v.fileName||null, filePath: v.filePath||null};
       } else if(v === true){
-        d[dk.k] = {checked:true, fileURL:null, fileName:null};
+        d[dk.k] = {checked:true, fileURL:null, fileName:null, filePath:null};
       }
     });
   }
@@ -421,17 +225,28 @@ function docsCompleteCount(s){
   return DOC_KEYS.filter(dk => s.documents && s.documents[dk.k] && s.documents[dk.k].checked).length;
 }
 
+function studentToData(s){
+  const {id, ...rest} = s;
+  return rest;
+}
+
+async function fetchStudents(){
+  const {data, error} = await sb.from('students').select('*').order('updated_at', {ascending:true});
+  if(error){ console.error('Fetch students failed:', error); return; }
+  state.students = data.map(row => ({...row.data, id: row.id, documents: normalizeDocs(row.data.documents)}));
+  if(state.screen === 'dashboard') render();
+}
+
 function startListening(){
-  if(!db) return;
-  unsubscribe = db.collection('students').onSnapshot(snap => {
-    state.students = snap.docs.map(doc => {
-      const data = doc.data();
-      return {...data, id: doc.id, documents: normalizeDocs(data.documents)};
-    });
-    if(state.screen === 'dashboard') render();
-  }, err => {
-    console.error('Firestore listen error', err);
-  });
+  if(!sb) return;
+  fetchStudents();
+  channel = sb.channel('students-changes')
+    .on('postgres_changes', {event:'*', schema:'public', table:'students'}, () => { fetchStudents(); })
+    .subscribe();
+}
+
+function stopListening(){
+  if(channel){ sb.removeChannel(channel); channel = null; }
 }
 
 function uid(){ return 'S' + Math.random().toString(36).slice(2,10); }
@@ -450,7 +265,7 @@ function renderSetup(){
       <div class="gate-mark display">!</div>
       <h1>Connect your database</h1>
       <div class="setup-box">
-        <p style="margin-top:0;">This app needs a Firebase project to store records and PDFs. Open this HTML file in a text editor, find <code>FIREBASE_CONFIG</code> near the top of the script, and paste in the config values from your Firebase project (Project settings &gt; Your apps).</p>
+        <p style="margin-top:0;">This app needs a Supabase project to store records and PDFs. Open this HTML file in a text editor, find <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> near the top of the script, and paste in the values from your Supabase project (Project Settings &gt; API).</p>
         <p style="margin-bottom:0;">Once that's saved, reload this page.</p>
       </div>
     </div>
@@ -491,7 +306,7 @@ function renderAdminLogin(){
         <label for="pw">Password</label>
         <input type="password" id="pw" placeholder="Enter password" autocomplete="current-password" />
         ${state.loginErr ? `<div class="err-text">${state.loginErr}</div>` : ''}
-        <button type="submit" class="btn" id="admin-submit">Sign in</button>
+        <button type="submit" class="btn">Sign in</button>
       </form>
       <div class="back-link" id="back">Back</div>
     </div>
@@ -688,10 +503,7 @@ function renderDashboard(){
       if(delBtn) delBtn.onclick = (e) => { e.stopPropagation(); deleteStudent(s.id); };
       DOC_KEYS.forEach(dk => {
         const box = document.getElementById('doc-'+s.id+'-'+dk.k);
-        if(box) box.onclick = (e) => {
-          e.stopPropagation();
-          toggleDocChecked(s, dk.k);
-        };
+        if(box) box.onclick = (e) => { e.stopPropagation(); toggleDocChecked(s, dk.k); };
         const fileInput = document.getElementById('file-'+s.id+'-'+dk.k);
         if(fileInput) fileInput.onchange = (e) => {
           e.stopPropagation();
@@ -784,29 +596,28 @@ function renderDetailGrid(s){
 
 async function toggleDocChecked(s, key){
   const newDocs = {...s.documents, [key]: {...s.documents[key], checked: !s.documents[key].checked}};
-  try{
-    await db.collection('students').doc(s.id).update({documents: newDocs});
-  }catch(err){ console.error('update failed', err); }
+  const data = studentToData({...s, documents:newDocs});
+  const {error} = await sb.from('students').update({data, updated_at:new Date().toISOString()}).eq('id', s.id);
+  if(error) console.error('Toggle doc failed:', error);
 }
 
 async function uploadDoc(s, key, file){
-  if(file.type !== 'application/pdf'){
-    alert('Please choose a PDF file.');
-    return;
-  }
+  if(file.type !== 'application/pdf'){ alert('Please choose a PDF file.'); return; }
   const uploadKey = s.id + ':' + key;
   state.uploadingKey = uploadKey;
   render();
   try{
-    const path = `documents/${s.id}/${key}/${Date.now()}_${file.name}`;
-    const ref = storage.ref().child(path);
-    await ref.put(file);
-    const url = await ref.getDownloadURL();
-    const newDocs = {...s.documents, [key]: {checked:true, fileURL:url, fileName:file.name}};
-    await db.collection('students').doc(s.id).update({documents: newDocs});
+    const path = `${s.id}/${key}/${Date.now()}_${file.name}`;
+    const {error: upErr} = await sb.storage.from(STORAGE_BUCKET).upload(path, file, {upsert:true});
+    if(upErr) throw upErr;
+    const {data: urlData} = sb.storage.from(STORAGE_BUCKET).getPublicUrl(path);
+    const newDocs = {...s.documents, [key]: {checked:true, fileURL:urlData.publicUrl, fileName:file.name, filePath:path}};
+    const data = studentToData({...s, documents:newDocs});
+    const {error} = await sb.from('students').update({data, updated_at:new Date().toISOString()}).eq('id', s.id);
+    if(error) throw error;
   }catch(err){
-    console.error('upload failed', err);
-    alert("Couldn't upload that file. Check your Storage rules and connection.");
+    console.error('Upload failed:', err);
+    alert("Couldn't upload that file. Check your Storage bucket/policies and connection.");
   }
   state.uploadingKey = null;
   render();
@@ -815,17 +626,19 @@ async function uploadDoc(s, key, file){
 async function removeDoc(s, key){
   const doc = s.documents[key];
   try{
-    if(doc.fileURL){
-      try{ await storage.refFromURL(doc.fileURL).delete(); }catch(e){}
+    if(doc.filePath){
+      await sb.storage.from(STORAGE_BUCKET).remove([doc.filePath]);
     }
-    const newDocs = {...s.documents, [key]: {checked:false, fileURL:null, fileName:null}};
-    await db.collection('students').doc(s.id).update({documents: newDocs});
-  }catch(err){ console.error('remove failed', err); }
+    const newDocs = {...s.documents, [key]: {checked:false, fileURL:null, fileName:null, filePath:null}};
+    const data = studentToData({...s, documents:newDocs});
+    const {error} = await sb.from('students').update({data, updated_at:new Date().toISOString()}).eq('id', s.id);
+    if(error) throw error;
+  }catch(err){ console.error('Remove doc failed:', err); }
 }
 
 async function deleteStudent(id){
-  try{ await db.collection('students').doc(id).delete(); }
-  catch(err){ console.error('delete failed', err); }
+  const {error} = await sb.from('students').delete().eq('id', id);
+  if(error) console.error('Delete failed:', error);
 }
 
 function openModal(id){
@@ -907,7 +720,7 @@ async function saveFromForm(s, isEdit){
     }
   }
 
-  const data = {
+  const studentData = {
     studentNumber, name,
     sex: document.getElementById('f-sex').value,
     dob: document.getElementById('f-dob').value,
@@ -921,16 +734,17 @@ async function saveFromForm(s, isEdit){
     documents: s.documents
   };
 
-  try{
-    await db.collection('students').doc(s.id).set(data, {merge:true});
-    closeModal();
-  }catch(err){
+  const {error} = await sb.from('students').upsert({id: s.id, data: studentData, updated_at: new Date().toISOString()});
+  if(error){
     errHolder.innerHTML = `<div class="form-err">Couldn't save — check your connection and try again.</div>`;
+    console.error('Save failed:', error);
+    return;
   }
+  closeModal();
 }
 
 function signOut(){
-  if(unsubscribe){ unsubscribe(); unsubscribe = null; }
+  stopListening();
   state.role = null;
   state.viewerName = '';
   state.screen = 'role';
