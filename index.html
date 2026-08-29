@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Student Records Registry</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
@@ -501,31 +501,10 @@ function renderAdminLogin(){
     e.preventDefault();
     const val = document.getElementById('pw').value;
     if(!val){ state.loginErr = 'Enter a password.'; render(); return; }
-<<<<<<< Updated upstream
-    const submitBtn = document.getElementById('admin-submit');
-    submitBtn.disabled = true; submitBtn.textContent = 'Checking...';
-    try{
-      let storedPass = await getAdminPass();
-      if(storedPass === null){
-        await setAdminPass(val);
-        enterDashboard('admin');
-        return;
-      }
-      if(val === storedPass){
-        enterDashboard('admin');
-      } else {
-        state.loginErr = "That password doesn't match. Try again.";
-        render();
-      }
-    }catch(err){
-      console.error('Admin login error:', err);
-      state.loginErr = "Couldn't reach the database. Check your connection.";
-=======
     if(val === ADMIN_PASSWORD){
       enterDashboard('admin');
     } else {
       state.loginErr = "That password doesn't match. Try again.";
->>>>>>> Stashed changes
       render();
     }
   };
