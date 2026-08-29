@@ -161,6 +161,7 @@
 const SUPABASE_URL = "https://plqrnjfcbbqdchisdcvf.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_WhSpvg7C8PQXynVSTmF2Lg_fGN7-u2z";
 
+
 const CONFIG_IS_PLACEHOLDER = SUPABASE_URL === "YOUR_SUPABASE_URL";
 const ADMIN_PASSWORD = "jianneblanco";
 const STORAGE_BUCKET = "documents";
@@ -210,13 +211,33 @@ function normalizeDocs(raw){
   const d = emptyDocs();
   if(raw){
     DOC_KEYS.forEach(dk => {
-      const v = raw[dk.k];
-      if(v && typeof v === 'object'){
-        d[dk.k] = {checked: !!v.checked, fileURL: v.fileURL||null, fileName: v.fileName||null, filePath: v.filePath||null};
-      } else if(v === true){
-        d[dk.k] = {checked:true, fileURL:null, fileName:null, filePath:null};
-      }
-    });
+    const link = document.getElementById('view-'+s.id+'-'+dk.k);
+
+    if(link) {
+        link.onclick = async e => {
+            e.stopPropagation();
+
+            const doc = s.documents[dk.k];
+
+            if(!doc || !doc.filePath) {
+                alert('File not found.');
+                return;
+            }
+
+            const { data, error } = await sb.storage
+                .from(STORAGE_BUCKET)
+                .createSignedUrl(doc.filePath, 60 * 60);
+
+            if(error) {
+                console.error('Could not create signed URL:', error);
+                alert('Could not open the PDF. Check your Storage policies.');
+                return;
+            }
+
+            window.open(data.signedUrl, '_blank', 'noopener');
+        };
+    }
+});
   }
   return d;
 }
@@ -565,10 +586,10 @@ function renderDocRow(s, dk, isAdmin){
       <span class="doc-check" id="${isAdmin? 'doc-'+s.id+'-'+dk.k : ''}">${checked?'<i class="ti ti-check"></i>':''}</span>
       <span class="doc-label">${dk.l}</span>
       <div class="doc-file-actions">
-        ${doc.fileURL ? `<span class="doc-file-link" id="view-${s.id}-${dk.k}"><i class="ti ti-file-type-pdf"></i> ${escapeHtml(doc.fileName||'View PDF')}</span>` : ''}
+        ${doc.filePath ? `<span class="doc-file-link" id="view-${s.id}-${dk.k}"><i class="ti ti-file-type-pdf"></i> ${escapeHtml(doc.fileName || 'View PDF')}</span>` : ''}
         ${isAdmin && isUploading ? `<span class="doc-uploading">Uploading…</span>` : ''}
         ${isAdmin && !isUploading ? `
-          <label class="doc-upload-label" for="file-${s.id}-${dk.k}">${doc.fileURL ? 'Replace' : 'Upload PDF'}</label>
+          <label class="doc-upload-label" for="file-${s.id}-${dk.k}">${doc.filePath ? 'Replace' : 'Upload PDF'}</label>
           <input type="file" accept="application/pdf" id="file-${s.id}-${dk.k}" />
         ` : ''}
         ${isAdmin && doc.fileURL && !isUploading ? `<span class="doc-remove" id="rm-${s.id}-${dk.k}">Remove</span>` : ''}
@@ -611,7 +632,11 @@ async function uploadDoc(s, key, file){
     const {error: upErr} = await sb.storage.from(STORAGE_BUCKET).upload(path, file, {upsert:true});
     if(upErr) throw upErr;
     const {data: urlData} = sb.storage.from(STORAGE_BUCKET).getPublicUrl(path);
-    const newDocs = {...s.documents, [key]: {checked:true, fileURL:urlData.publicUrl, fileName:file.name, filePath:path}};
+    const newDocs = {...s.documents, [key]: {
+    checked: true,
+    fileURL: null,
+    fileName: file.name,
+    filePath: path}};
     const data = studentToData({...s, documents:newDocs});
     const {error} = await sb.from('students').update({data, updated_at:new Date().toISOString()}).eq('id', s.id);
     if(error) throw error;
