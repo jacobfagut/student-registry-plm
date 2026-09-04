@@ -110,15 +110,16 @@
   .doc-check{width:18px;height:18px; border-radius:4px; border:1.5px solid var(--muted); display:flex;align-items:center;justify-content:center; flex-shrink:0; cursor:pointer; font-size:11px; color:#fff;}
   .doc-row.checked .doc-check{background:var(--green); border-color:var(--green);}
   .doc-row.view .doc-check{cursor:default;}
-  .doc-label{flex:1; min-width:140px;}
-  .doc-file-actions{display:flex; align-items:center; gap:8px; margin-left:auto;}
+  .doc-label{flex:1; min-width:120px;}
+  .doc-file-actions{display:flex; align-items:center; gap:8px; margin-left:auto; flex-wrap:wrap;}
   .doc-file-link{font-size:12px; color:var(--maroon); text-decoration:underline; cursor:pointer; display:flex; align-items:center; gap:4px; white-space:nowrap;}
   .doc-file-link:hover{color:var(--maroon-deep);}
-  .doc-upload-label{font-size:12px; color:var(--ink-soft); border:1px solid var(--line); padding:5px 10px; border-radius:6px; cursor:pointer; white-space:nowrap;}
-  .doc-upload-label:hover{border-color:var(--maroon); color:var(--maroon);}
-  .doc-upload-label input{display:none;}
+  .doc-link-form{display:flex; align-items:center; gap:6px;}
+  .doc-link-input{padding:6px 9px; border:1px solid var(--line); border-radius:6px; font-size:12px; font-family:'Inter',sans-serif; color:var(--ink); width:190px; background:#fff;}
+  .doc-link-input:focus{outline:2px solid var(--maroon); outline-offset:1px;}
+  .doc-link-save{font-size:12px; color:#fff; background:var(--maroon); border:1px solid var(--maroon); padding:6px 11px; border-radius:6px; cursor:pointer; white-space:nowrap;}
+  .doc-link-save:hover{background:var(--maroon-deep);}
   .doc-remove{font-size:11.5px; color:var(--red); cursor:pointer; text-decoration:underline; white-space:nowrap;}
-  .doc-uploading{font-size:12px; color:var(--amber);}
 
   .rec-actions{margin-top:18px; display:flex; gap:10px;}
   .mini-btn{padding:7px 14px; border-radius:7px; font-size:12.5px; cursor:pointer; font-family:'Inter',sans-serif; border:1px solid var(--line); background:#fff; color:var(--ink);}
@@ -145,6 +146,7 @@
     .form-grid{grid-template-columns:1fr;}
     .main{padding:20px 16px 60px;}
     .topbar{padding:14px 18px;}
+    .doc-link-input{width:140px;}
   }
 </style>
 </head>
@@ -163,7 +165,6 @@ const SUPABASE_ANON_KEY = "sb_publishable_WhSpvg7C8PQXynVSTmF2Lg_fGN7-u2z";
 
 const CONFIG_IS_PLACEHOLDER = SUPABASE_URL === "YOUR_SUPABASE_URL";
 const ADMIN_PASSWORD = "jianneb";
-const STORAGE_BUCKET = "documents";
 
 let sb = null;
 if(!CONFIG_IS_PLACEHOLDER){
@@ -193,7 +194,6 @@ let state = {
   sortKey:'name',
   sortDir:'asc',
   openId:null,
-  uploadingKey:null,
   loginErr:''
 };
 
@@ -202,7 +202,7 @@ let channel = null;
 
 function emptyDocs(){
   const d = {};
-  DOC_KEYS.forEach(dk => d[dk.k] = {checked:false, fileURL:null, fileName:null, filePath:null});
+  DOC_KEYS.forEach(dk => d[dk.k] = {checked:false, fileURL:null});
   return d;
 }
 
@@ -212,9 +212,9 @@ function normalizeDocs(raw){
     DOC_KEYS.forEach(dk => {
       const v = raw[dk.k];
       if(v && typeof v === 'object'){
-        d[dk.k] = {checked: !!v.checked, fileURL: v.fileURL||null, fileName: v.fileName||null, filePath: v.filePath||null};
+        d[dk.k] = {checked: !!v.checked, fileURL: v.fileURL||null};
       } else if(v === true){
-        d[dk.k] = {checked:true, fileURL:null, fileName:null, filePath:null};
+        d[dk.k] = {checked:true, fileURL:null};
       }
     });
   }
@@ -265,7 +265,7 @@ function renderSetup(){
       <div class="gate-mark display">!</div>
       <h1>Connect your database</h1>
       <div class="setup-box">
-        <p style="margin-top:0;">This app needs a Supabase project to store records and PDFs. Open this HTML file in a text editor, find <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> near the top of the script, and paste in the values from your Supabase project (Project Settings &gt; API).</p>
+        <p style="margin-top:0;">This app needs a Supabase project to store records. Open this HTML file in a text editor, find <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> near the top of the script, and paste in the values from your Supabase project (Project Settings &gt; API).</p>
         <p style="margin-bottom:0;">Once that's saved, reload this page.</p>
       </div>
     </div>
@@ -282,12 +282,12 @@ function renderRole(){
         <div class="role-card" id="pick-admin">
           <span class="tag">Registrar</span>
           <h3>Admin</h3>
-          <p>Add, edit and update student records, upload documents, and manage the checklist. One admin account, password protected.</p>
+          <p>Add, edit and update student records, link documents, and manage the checklist. One admin account, password protected.</p>
         </div>
         <div class="role-card" id="pick-viewer">
           <span class="tag">Read only</span>
           <h3>Viewer</h3>
-          <p>Browse, search and view uploaded documents. No editing. Anyone can enter as a viewer.</p>
+          <p>Browse, search and open linked documents. No editing. Anyone can enter as a viewer.</p>
         </div>
       </div>
     </div>
@@ -504,11 +504,13 @@ function renderDashboard(){
       DOC_KEYS.forEach(dk => {
         const box = document.getElementById('doc-'+s.id+'-'+dk.k);
         if(box) box.onclick = (e) => { e.stopPropagation(); toggleDocChecked(s, dk.k); };
-        const fileInput = document.getElementById('file-'+s.id+'-'+dk.k);
-        if(fileInput) fileInput.onchange = (e) => {
+        const linkForm = document.getElementById('linkform-'+s.id+'-'+dk.k);
+        if(linkForm) linkForm.onsubmit = (e) => {
+          e.preventDefault();
           e.stopPropagation();
-          const file = e.target.files[0];
-          if(file) uploadDoc(s, dk.k, file);
+          const input = document.getElementById('linkinput-'+s.id+'-'+dk.k);
+          const url = input.value.trim();
+          if(url) saveDocLink(s, dk.k, url);
         };
         const removeBtn = document.getElementById('rm-'+s.id+'-'+dk.k);
         if(removeBtn) removeBtn.onclick = (e) => { e.stopPropagation(); removeDoc(s, dk.k); };
@@ -558,20 +560,19 @@ function renderCard(s, isAdmin){
 function renderDocRow(s, dk, isAdmin){
   const doc = s.documents[dk.k];
   const checked = doc.checked;
-  const uploadKey = s.id + ':' + dk.k;
-  const isUploading = state.uploadingKey === uploadKey;
   return `
     <div class="doc-row ${checked?'checked':''} ${isAdmin?'':'view'}">
       <span class="doc-check" id="${isAdmin? 'doc-'+s.id+'-'+dk.k : ''}">${checked?'<i class="ti ti-check"></i>':''}</span>
       <span class="doc-label">${dk.l}</span>
       <div class="doc-file-actions">
-        ${doc.fileURL ? `<span class="doc-file-link" id="view-${s.id}-${dk.k}"><i class="ti ti-file-type-pdf"></i> ${escapeHtml(doc.fileName||'View PDF')}</span>` : ''}
-        ${isAdmin && isUploading ? `<span class="doc-uploading">Uploading…</span>` : ''}
-        ${isAdmin && !isUploading ? `
-          <label class="doc-upload-label" for="file-${s.id}-${dk.k}">${doc.fileURL ? 'Replace' : 'Upload PDF'}</label>
-          <input type="file" accept="application/pdf" id="file-${s.id}-${dk.k}" />
+        ${doc.fileURL ? `<span class="doc-file-link" id="view-${s.id}-${dk.k}"><i class="ti ti-external-link"></i> View link</span>` : ''}
+        ${isAdmin ? `
+          <form class="doc-link-form" id="linkform-${s.id}-${dk.k}">
+            <input type="text" class="doc-link-input" id="linkinput-${s.id}-${dk.k}" placeholder="Paste document link" value="${escapeAttr(doc.fileURL||'')}" />
+            <button type="submit" class="doc-link-save">${doc.fileURL ? 'Update' : 'Save'}</button>
+          </form>
         ` : ''}
-        ${isAdmin && doc.fileURL && !isUploading ? `<span class="doc-remove" id="rm-${s.id}-${dk.k}">Remove</span>` : ''}
+        ${isAdmin && doc.fileURL ? `<span class="doc-remove" id="rm-${s.id}-${dk.k}">Remove</span>` : ''}
       </div>
     </div>
   `;
@@ -601,39 +602,21 @@ async function toggleDocChecked(s, key){
   if(error) console.error('Toggle doc failed:', error);
 }
 
-async function uploadDoc(s, key, file){
-  if(file.type !== 'application/pdf'){ alert('Please choose a PDF file.'); return; }
-  const uploadKey = s.id + ':' + key;
-  state.uploadingKey = uploadKey;
-  render();
-  try{
-    const path = `${s.id}/${key}/${Date.now()}_${file.name}`;
-    const {error: upErr} = await sb.storage.from(STORAGE_BUCKET).upload(path, file, {upsert:true});
-    if(upErr) throw upErr;
-    const {data: urlData} = sb.storage.from(STORAGE_BUCKET).getPublicUrl(path);
-    const newDocs = {...s.documents, [key]: {checked:true, fileURL:urlData.publicUrl, fileName:file.name, filePath:path}};
-    const data = studentToData({...s, documents:newDocs});
-    const {error} = await sb.from('students').update({data, updated_at:new Date().toISOString()}).eq('id', s.id);
-    if(error) throw error;
-  }catch(err){
-    console.error('Upload failed:', err);
-    alert("Couldn't upload that file. Check your Storage bucket/policies and connection.");
+async function saveDocLink(s, key, url){
+  const newDocs = {...s.documents, [key]: {checked:true, fileURL:url}};
+  const data = studentToData({...s, documents:newDocs});
+  const {error} = await sb.from('students').update({data, updated_at:new Date().toISOString()}).eq('id', s.id);
+  if(error){
+    console.error('Save link failed:', error);
+    alert("Couldn't save that link. Check your connection and try again.");
   }
-  state.uploadingKey = null;
-  render();
 }
 
 async function removeDoc(s, key){
-  const doc = s.documents[key];
-  try{
-    if(doc.filePath){
-      await sb.storage.from(STORAGE_BUCKET).remove([doc.filePath]);
-    }
-    const newDocs = {...s.documents, [key]: {checked:false, fileURL:null, fileName:null, filePath:null}};
-    const data = studentToData({...s, documents:newDocs});
-    const {error} = await sb.from('students').update({data, updated_at:new Date().toISOString()}).eq('id', s.id);
-    if(error) throw error;
-  }catch(err){ console.error('Remove doc failed:', err); }
+  const newDocs = {...s.documents, [key]: {checked:false, fileURL:null}};
+  const data = studentToData({...s, documents:newDocs});
+  const {error} = await sb.from('students').update({data, updated_at:new Date().toISOString()}).eq('id', s.id);
+  if(error) console.error('Remove doc link failed:', error);
 }
 
 async function deleteStudent(id){
@@ -662,7 +645,7 @@ function openModal(id){
 function renderModalForm(s, isEdit){
   return `
     <h2>${isEdit ? 'Edit student record' : 'Add student record'}</h2>
-    <p class="modal-sub">${isEdit ? "Update this student's information." : "Fill in the student's information below. Document uploads are managed from the record card after saving."}</p>
+    <p class="modal-sub">${isEdit ? "Update this student's information." : "Fill in the student's information below. Document links are managed from the record card after saving."}</p>
     <form id="student-form">
       <div class="form-grid">
         <div class="field"><label>Student number <span class="hint">(optional)</span></label><input type="text" id="f-studentNumber" value="${escapeAttr(s.studentNumber)}" placeholder="2024-00123" /></div>

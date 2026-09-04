@@ -1,0 +1,1502 @@
+
+/* =========================================================
+   STUDENT RECORDS REGISTRY
+   React version based on your original HTML design
+========================================================= */
+
+/* =========================================================
+   ROOT COLORS
+========================================================= */
+
+:root {
+    --paper: #F6F3EC;
+    --card: #FFFFFF;
+
+    --ink: #1B2A4A;
+    --ink-soft: #4B5670;
+    --muted: #8B8578;
+
+    --line: #DCD6C8;
+
+    --maroon: #8B2635;
+    --maroon-deep: #6E1D2A;
+
+    --green: #3F6B4E;
+    --green-bg: #E7EFE8;
+
+    --amber: #A6621B;
+    --amber-bg: #F5EADA;
+
+    --red: #B23A34;
+    --red-bg: #F6E4E1;
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    background: var(--paper);
+    color: var(--ink);
+
+    font-family: "Inter", Arial, sans-serif;
+}
+
+
+/* =========================================================
+   FONT HELPERS
+========================================================= */
+
+.display {
+    font-family: "Fraunces", Georgia, serif;
+}
+
+.mono {
+    font-family: "IBM Plex Mono", monospace;
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+    min-height: 100vh;
+
+    background: var(--paper);
+
+    color: var(--ink);
+
+    font-family: "Inter", Arial, sans-serif;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page {
+    max-width: 1080px;
+
+    margin: 0 auto;
+
+    padding: 28px 32px 80px;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.page-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 24px;
+}
+
+.page-header h1 {
+    margin: 0 0 6px;
+
+    font-family: "Fraunces", Georgia, serif;
+
+    font-size: 30px;
+
+    font-weight: 500;
+
+    letter-spacing: -0.01em;
+}
+
+.page-header p {
+    margin: 0;
+
+    color: var(--ink-soft);
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   GENERAL BUTTON
+========================================================= */
+
+button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    padding: 9px 15px;
+
+    border: 1px solid var(--maroon);
+
+    border-radius: 7px;
+
+    background: var(--maroon);
+
+    color: #ffffff;
+
+    font-family: "Inter", Arial, sans-serif;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease,
+        transform 0.15s ease;
+}
+
+button:hover {
+    background: var(--maroon-deep);
+    border-color: var(--maroon-deep);
+}
+
+button:disabled {
+    opacity: 0.6;
+
+    cursor: default;
+}
+
+
+/* =========================================================
+   ADD BUTTON
+========================================================= */
+
+.add-btn {
+    padding: 9px 16px;
+
+    border: 1px solid var(--maroon);
+
+    border-radius: 7px;
+
+    background: var(--maroon);
+
+    color: #ffffff;
+
+    font-size: 13.5px;
+
+    white-space: nowrap;
+}
+
+.add-btn:hover {
+    background: var(--maroon-deep);
+}
+
+
+/* =========================================================
+   SECONDARY BUTTON
+========================================================= */
+
+.btn-secondary {
+    background: transparent;
+
+    border: 1px solid var(--line);
+
+    color: var(--ink);
+}
+
+.btn-secondary:hover {
+    background: transparent;
+
+    border-color: var(--maroon);
+
+    color: var(--maroon);
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats-row {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(150px, 1fr));
+
+    gap: 12px;
+
+    margin-bottom: 22px;
+}
+
+.stat {
+    padding: 14px 16px;
+
+    background: var(--card);
+
+    border: 1px solid var(--line);
+
+    border-radius: 10px;
+}
+
+.stat .num {
+    font-family: "Fraunces", Georgia, serif;
+
+    font-size: 24px;
+
+    font-weight: 500;
+}
+
+.stat .lbl {
+    margin-top: 2px;
+
+    color: var(--ink-soft);
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.controls {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 18px;
+
+    padding: 14px;
+
+    background: var(--card);
+
+    border: 1px solid var(--line);
+
+    border-radius: 10px;
+}
+
+.controls input[type="text"] {
+    flex: 1;
+
+    min-width: 180px;
+
+    padding: 9px 12px;
+
+    border: 1px solid var(--line);
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: var(--ink);
+
+    font-family: "Inter", Arial, sans-serif;
+
+    font-size: 13.5px;
+}
+
+.controls input[type="text"]:focus {
+    outline: 2px solid var(--maroon);
+
+    outline-offset: 1px;
+}
+
+.controls select {
+    padding: 9px 10px;
+
+    border: 1px solid var(--line);
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: var(--ink);
+
+    font-family: "Inter", Arial, sans-serif;
+
+    font-size: 13px;
+}
+
+.controls select:focus {
+    outline: 2px solid var(--maroon);
+
+    outline-offset: 1px;
+}
+
+.controls .spacer {
+    flex: 1;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty {
+    padding: 60px 20px;
+
+    text-align: center;
+
+    color: var(--ink-soft);
+
+    background: var(--card);
+
+    border: 1px dashed var(--line);
+
+    border-radius: 12px;
+}
+
+.empty .display {
+    margin-bottom: 6px;
+
+    color: var(--ink);
+
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   CARD LIST
+========================================================= */
+
+.card-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+/* =========================================================
+   STUDENT RECORD CARD
+========================================================= */
+
+.rec-card {
+    background: var(--card);
+
+    border: 1px solid var(--line);
+
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   STUDENT RECORD HEADER
+========================================================= */
+
+.rec-head {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 16px;
+
+    padding: 14px 18px;
+
+    cursor: pointer;
+}
+
+.rec-head:hover {
+    background: #FCFAF5;
+}
+
+.rec-num {
+    padding: 4px 9px;
+
+    border-radius: 6px;
+
+    background: #FBEFE9;
+
+    color: var(--maroon);
+
+    font-family: "IBM Plex Mono", monospace;
+
+    font-size: 12.5px;
+
+    white-space: nowrap;
+}
+
+.rec-num.missing {
+    background: #EFEBE1;
+
+    color: var(--muted);
+
+    font-style: italic;
+}
+
+.rec-name {
+    flex: 1;
+
+    min-width: 120px;
+
+    font-family: "Fraunces", Georgia, serif;
+
+    font-size: 16.5px;
+
+    font-weight: 500;
+}
+
+.rec-meta {
+    color: var(--ink-soft);
+
+    font-size: 12.5px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   DOCUMENT STATUS
+========================================================= */
+
+.doc-stamp {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-family: "IBM Plex Mono", monospace;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+}
+
+.doc-stamp.complete {
+    background: var(--green-bg);
+
+    color: var(--green);
+}
+
+.doc-stamp.partial {
+    background: var(--amber-bg);
+
+    color: var(--amber);
+}
+
+.doc-stamp.empty-stamp {
+    background: var(--red-bg);
+
+    color: var(--red);
+}
+
+
+/* =========================================================
+   CHEVRON
+========================================================= */
+
+.chevron {
+    color: var(--muted);
+
+    font-size: 14px;
+
+    transition: transform 0.15s ease;
+}
+
+.rec-card.open .chevron {
+    transform: rotate(90deg);
+}
+
+
+/* =========================================================
+   RECORD BODY
+========================================================= */
+
+.rec-body {
+    display: none;
+
+    padding: 20px 18px 22px;
+
+    background: #FCFAF5;
+
+    border-top: 1px solid var(--line);
+}
+
+.rec-card.open .rec-body {
+    display: block;
+}
+
+
+/* =========================================================
+   DETAIL GRID
+========================================================= */
+
+.detail-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(200px, 1fr));
+
+    gap: 14px 22px;
+
+    margin-bottom: 20px;
+}
+
+.detail-item .k {
+    margin-bottom: 3px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.05em;
+}
+
+.detail-item .v {
+    color: var(--ink);
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   DOCUMENT SECTION
+========================================================= */
+
+.docs-section h4 {
+    margin: 0 0 10px;
+
+    color: var(--ink);
+
+    font-family: "Fraunces", Georgia, serif;
+
+    font-size: 14.5px;
+
+    font-weight: 500;
+}
+
+.docs-grid {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+/* =========================================================
+   DOCUMENT ROW
+========================================================= */
+
+.doc-row {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    padding: 9px 12px;
+
+    background: #ffffff;
+
+    border: 1px solid var(--line);
+
+    border-radius: 8px;
+
+    font-size: 13px;
+}
+
+.doc-row.checked {
+    background: var(--green-bg);
+
+    border-color: var(--green);
+}
+
+.doc-row.view .doc-check {
+    cursor: default;
+}
+
+.doc-check {
+    width: 18px;
+    height: 18px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1.5px solid var(--muted);
+
+    border-radius: 4px;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+.doc-row.checked .doc-check {
+    background: var(--green);
+
+    border-color: var(--green);
+}
+
+.doc-label {
+    flex: 1;
+
+    min-width: 140px;
+}
+
+.doc-file-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-left: auto;
+}
+
+.doc-file-link {
+    display: flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+    color: var(--maroon);
+
+    font-size: 12px;
+
+    text-decoration: underline;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+}
+
+.doc-file-link:hover {
+    color: var(--maroon-deep);
+}
+
+.doc-upload-label {
+    padding: 5px 10px;
+
+    border: 1px solid var(--line);
+
+    border-radius: 6px;
+
+    color: var(--ink-soft);
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+}
+
+.doc-upload-label:hover {
+    border-color: var(--maroon);
+
+    color: var(--maroon);
+}
+
+.doc-upload-label input {
+    display: none;
+}
+
+.doc-remove {
+    color: var(--red);
+
+    font-size: 11.5px;
+
+    text-decoration: underline;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+}
+
+.doc-uploading {
+    color: var(--amber);
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   RECORD ACTIONS
+========================================================= */
+
+.rec-actions {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+.mini-btn {
+    padding: 7px 14px;
+
+    border: 1px solid var(--line);
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: var(--ink);
+
+    font-family: "Inter", Arial, sans-serif;
+
+    font-size: 12.5px;
+
+    cursor: pointer;
+}
+
+.mini-btn:hover {
+    border-color: var(--maroon);
+
+    color: var(--maroon);
+}
+
+.mini-btn.danger:hover {
+    border-color: var(--red);
+
+    color: var(--red);
+}
+
+
+/* =========================================================
+   ORIGINAL-STYLE MODAL
+   Used for Add Student and other forms
+========================================================= */
+
+.modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: none;
+
+    align-items: flex-start;
+
+    justify-content: center;
+
+    padding: 40px 16px;
+
+    overflow-y: auto;
+
+    background: rgba(27, 42, 74, 0.45);
+}
+
+.modal-overlay.open {
+    display: flex;
+}
+
+.modal {
+    width: 100%;
+
+    max-width: 620px;
+
+    padding: 26px 28px 28px;
+
+    background: #ffffff;
+
+    border-radius: 14px;
+}
+
+.modal h2 {
+    margin: 0 0 4px;
+
+    font-family: "Fraunces", Georgia, serif;
+
+    font-size: 20px;
+
+    font-weight: 500;
+}
+
+.modal .modal-sub {
+    margin: 0 0 20px;
+
+    color: var(--ink-soft);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 14px 16px;
+
+    margin-bottom: 18px;
+}
+
+.form-grid .full {
+    grid-column: 1 / -1;
+}
+
+.field label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--ink-soft);
+
+    font-size: 12px;
+
+    font-weight: 500;
+}
+
+.field .hint {
+    color: var(--muted);
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+.field input,
+.field select,
+.field textarea {
+    width: 100%;
+
+    padding: 9px 11px;
+
+    border: 1px solid var(--line);
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: var(--ink);
+
+    font-family: "Inter", Arial, sans-serif;
+
+    font-size: 13.5px;
+}
+
+.field textarea {
+    min-height: 80px;
+
+    resize: vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+    outline: 2px solid var(--maroon);
+
+    outline-offset: 1px;
+}
+
+.field-error {
+    border-color: var(--red) !important;
+}
+
+.form-err {
+    margin-top: 12px;
+
+    color: var(--red);
+
+    font-size: 12px;
+}
+
+.modal-actions {
+    display: flex;
+
+    gap: 10px;
+
+    justify-content: flex-end;
+}
+
+.modal-actions .btn,
+.modal-actions .mini-btn {
+    width: auto;
+}
+
+
+/* =========================================================
+   =========================================================
+   STUDENT PROFILE POPUP
+   This is the new part:
+   original design + proper popup behavior
+   =========================================================
+========================================================= */
+
+.student-profile-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 10000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+
+    background: rgba(27, 42, 74, 0.55);
+
+    backdrop-filter: blur(2px);
+
+    overflow-y: auto;
+}
+
+
+/* =========================================================
+   PROFILE POPUP
+========================================================= */
+
+.student-profile-modal {
+    width: 100%;
+
+    max-width: 1100px;
+
+    max-height: calc(100vh - 60px);
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background: var(--paper);
+
+    border: 1px solid var(--line);
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 25px 60px rgba(27, 42, 74, 0.25);
+}
+
+
+/* =========================================================
+   PROFILE HEADER
+========================================================= */
+
+.student-profile-header {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 22px 26px;
+
+    background: var(--ink);
+
+    color: #EFEAE0;
+
+    border-bottom: 1px solid var(--line);
+
+    flex-shrink: 0;
+}
+
+.student-profile-header h2 {
+    margin: 0 0 5px;
+
+    font-family: "Fraunces", Georgia, serif;
+
+    font-size: 22px;
+
+    font-weight: 500;
+}
+
+.student-profile-header .student-name {
+    margin: 0 0 4px;
+
+    color: #EFEAE0;
+
+    font-size: 16px;
+
+    font-weight: 500;
+}
+
+.student-profile-header small {
+    color: #C7C2B6;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   PROFILE CLOSE BUTTON
+========================================================= */
+
+.student-profile-close {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    border-radius: 7px;
+
+    background: transparent;
+
+    color: #EFEAE0;
+
+    font-size: 24px;
+
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+.student-profile-close:hover {
+    border-color: #C9A66B;
+
+    background: transparent;
+
+    color: #C9A66B;
+}
+
+
+/* =========================================================
+   PROFILE BODY
+========================================================= */
+
+.student-profile-body {
+    flex: 1;
+
+    min-height: 0;
+
+    overflow-y: auto;
+
+    padding: 24px;
+
+    background: var(--paper);
+}
+
+
+/* =========================================================
+   PROFILE TWO COLUMN
+========================================================= */
+
+.student-profile-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(320px, 0.85fr);
+
+    gap: 20px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   PROFILE INFORMATION
+========================================================= */
+
+.student-information,
+.student-documents {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   PROFILE SECTION
+========================================================= */
+
+.student-profile-section {
+    margin-bottom: 18px;
+
+    padding: 20px;
+
+    background: var(--card);
+
+    border: 1px solid var(--line);
+
+    border-radius: 10px;
+}
+
+.student-profile-section:last-child {
+    margin-bottom: 0;
+}
+
+.student-profile-section h3 {
+    margin: 0 0 16px;
+
+    font-family: "Fraunces", Georgia, serif;
+
+    color: var(--ink);
+
+    font-size: 15px;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   PROFILE DETAIL GRID
+========================================================= */
+
+.student-profile-details {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 16px 20px;
+}
+
+.student-profile-detail .label {
+    margin-bottom: 3px;
+
+    color: var(--muted);
+
+    font-size: 10.5px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.05em;
+}
+
+.student-profile-detail .value {
+    color: var(--ink);
+
+    font-size: 13.5px;
+
+    line-height: 1.45;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   MISSING INFORMATION
+========================================================= */
+
+.student-profile-detail .value.missing {
+    color: var(--muted);
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   DOCUMENTS INSIDE PROFILE
+========================================================= */
+
+.student-profile-documents {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.student-profile-document {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 10px 12px;
+
+    background: #ffffff;
+
+    border: 1px solid var(--line);
+
+    border-radius: 8px;
+}
+
+.student-profile-document.available {
+    background: var(--green-bg);
+
+    border-color: var(--green);
+}
+
+.student-profile-document.missing {
+    background: #ffffff;
+
+    border-color: var(--line);
+}
+
+.student-profile-document .status-icon {
+    width: 20px;
+    height: 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    font-size: 11px;
+}
+
+.student-profile-document.available .status-icon {
+    background: var(--green);
+
+    color: #ffffff;
+}
+
+.student-profile-document.missing .status-icon {
+    background: var(--red-bg);
+
+    color: var(--red);
+}
+
+.student-profile-document .document-name {
+    flex: 1;
+
+    color: var(--ink);
+
+    font-size: 12.5px;
+}
+
+.student-profile-document .document-status {
+    color: var(--ink-soft);
+
+    font-family: "IBM Plex Mono", monospace;
+
+    font-size: 10.5px;
+
+    white-space: nowrap;
+}
+
+.student-profile-document.available .document-status {
+    color: var(--green);
+}
+
+.student-profile-document.missing .document-status {
+    color: var(--red);
+}
+
+
+/* =========================================================
+   PROFILE FOOTER
+========================================================= */
+
+.student-profile-footer {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    padding: 14px 26px;
+
+    background: #ffffff;
+
+    border-top: 1px solid var(--line);
+
+    flex-shrink: 0;
+}
+
+.student-profile-footer .mini-btn {
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   EDIT BUTTON
+========================================================= */
+
+.student-profile-footer .edit-btn {
+    border-color: var(--maroon);
+
+    color: var(--maroon);
+}
+
+.student-profile-footer .edit-btn:hover {
+    background: var(--maroon);
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   DELETE BUTTON
+========================================================= */
+
+.student-profile-footer .delete-btn {
+    border-color: var(--red);
+
+    color: var(--red);
+}
+
+.student-profile-footer .delete-btn:hover {
+    background: var(--red-bg);
+
+    color: var(--red);
+}
+
+
+/* =========================================================
+   PROFILE LOADING
+========================================================= */
+
+.student-profile-loading {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 300px;
+
+    color: var(--ink-soft);
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .page {
+        padding: 24px 20px 60px;
+    }
+
+    .student-profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .student-profile-overlay {
+        padding: 18px;
+    }
+
+}
+
+
+@media (max-width: 640px) {
+
+    .page {
+        padding: 20px 16px 50px;
+    }
+
+    .page-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .page-header > button {
+        width: 100%;
+    }
+
+    .controls {
+        align-items: stretch;
+    }
+
+    .controls input[type="text"] {
+        width: 100%;
+    }
+
+    .student-profile-overlay {
+        padding: 8px;
+    }
+
+    .student-profile-modal {
+        max-height: calc(100vh - 16px);
+
+        border-radius: 10px;
+    }
+
+    .student-profile-header {
+        padding: 18px;
+    }
+
+    .student-profile-body {
+        padding: 14px;
+    }
+
+    .student-profile-section {
+        padding: 16px;
+    }
+
+    .student-profile-details {
+        grid-template-columns: 1fr;
+    }
+
+    .student-profile-footer {
+        padding: 12px 16px;
+
+        flex-wrap: wrap;
+    }
+
+    .rec-head {
+        gap: 10px;
+    }
+
+    .rec-meta {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .student-profile-footer {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .student-profile-footer button {
+        width: 100%;
+    }
+
+}
+
