@@ -18,7 +18,9 @@
     --maroon:#8B2635;
     --maroon-deep:#6E1D2A;
     --green:#3F6B4E;
+    --green-deep:#2C4A37;
     --green-bg:#E7EFE8;
+    --gold:#C9A66B;
     --amber:#A6621B;
     --amber-bg:#F5EADA;
     --red:#B23A34;
@@ -31,21 +33,21 @@
   .display{font-family:'Fraunces',serif;}
 
   .gate{min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 20px; text-align:center;}
-  .gate-mark{width:56px;height:56px;border-radius:50%; border:2px solid var(--maroon); display:flex;align-items:center;justify-content:center; margin-bottom:22px; color:var(--maroon);}
+  .gate-mark{width:56px;height:56px;border-radius:50%; border:2px solid var(--green); display:flex;align-items:center;justify-content:center; margin-bottom:22px; color:var(--green);}
   .gate h1{font-family:'Fraunces',serif; font-weight:500; font-size:34px; margin:0 0 8px; letter-spacing:-0.01em;}
   .gate p.sub{color:var(--ink-soft); font-size:15px; margin:0 0 36px; max-width:460px; line-height:1.55;}
   .role-cards{display:flex;gap:18px;flex-wrap:wrap;justify-content:center; max-width:640px;}
   .role-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:26px 28px; width:250px; text-align:left; cursor:pointer; transition:border-color .15s ease, transform .15s ease;}
-  .role-card:hover{border-color:var(--maroon); transform:translateY(-2px);}
-  .role-card .tag{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--maroon); display:block; margin-bottom:10px;}
+  .role-card:hover{border-color:var(--green); transform:translateY(-2px);}
+  .role-card .tag{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:10px;}
   .role-card h3{font-family:'Fraunces',serif; font-size:20px; font-weight:500; margin:0 0 8px;}
   .role-card p{font-size:13px; color:var(--ink-soft); margin:0; line-height:1.5;}
   .gate form{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:28px; width:320px; text-align:left;}
   .gate label{display:block; font-size:12px; color:var(--ink-soft); margin-bottom:6px; font-weight:500;}
   .gate input[type=text], .gate input[type=password]{width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:8px; font-size:14px; font-family:'Inter',sans-serif; margin-bottom:14px; background:#fff; color:var(--ink);}
-  .gate input:focus{outline:2px solid var(--maroon); outline-offset:1px;}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px; padding:10px 18px; border-radius:8px; border:1px solid var(--maroon); background:var(--maroon); color:#fff; font-size:14px; font-weight:500; cursor:pointer; font-family:'Inter',sans-serif; width:100%;}
-  .btn:hover{background:var(--maroon-deep);}
+  .gate input:focus{outline:2px solid var(--green); outline-offset:1px;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px; padding:10px 18px; border-radius:8px; border:1px solid var(--green); background:var(--green); color:#fff; font-size:14px; font-weight:500; cursor:pointer; font-family:'Inter',sans-serif; width:100%;}
+  .btn:hover{background:var(--green-deep);}
   .btn:disabled{opacity:.6; cursor:default;}
   .err-text{color:var(--red); font-size:12.5px; margin:-6px 0 12px;}
   .back-link{margin-top:18px; font-size:13px; color:var(--ink-soft); cursor:pointer; text-decoration:underline;}
@@ -53,17 +55,16 @@
   .setup-box{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:28px; max-width:520px; text-align:left;}
   .setup-box code{background:#F0EBDF; padding:2px 6px; border-radius:4px; font-family:'IBM Plex Mono',monospace; font-size:13px;}
 
-  .topbar{background:var(--ink); color:#EFEAE0; padding:16px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+  .topbar{background:var(--green-deep); color:#EFEAE0; padding:16px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;}
   .topbar .brand{display:flex;align-items:center;gap:12px;}
-  .topbar .brand-mark{width:34px;height:34px;border-radius:50%; border:1.5px solid #C9A66B; display:flex;align-items:center;justify-content:center; font-family:'Fraunces',serif;font-size:15px;color:#C9A66B;}
+  .topbar .brand-mark{width:34px;height:34px;border-radius:50%; border:1.5px solid var(--gold); display:flex;align-items:center;justify-content:center; font-family:'Fraunces',serif;font-size:15px;color:var(--gold);}
   .topbar h1{font-family:'Fraunces',serif; font-size:18px; font-weight:500; margin:0;}
-  .topbar .role-pill{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#C9A66B; display:block; margin-top:1px;}
+  .topbar .role-pill{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--gold); display:block; margin-top:1px;}
   .topbar-right{display:flex;align-items:center;gap:14px;}
-  .topbar-user{font-size:13px;color:#C7C2B6;}
   .sync-dot{display:flex; align-items:center; gap:6px; font-size:12px; color:#C7C2B6;}
   .sync-dot .dot{width:7px;height:7px;border-radius:50%;background:#6FBF8C;}
   .signout{font-size:13px; color:#EFEAE0; border:1px solid rgba(255,255,255,.25); background:transparent; padding:7px 14px; border-radius:7px; cursor:pointer; font-family:'Inter',sans-serif;}
-  .signout:hover{border-color:#C9A66B; color:#C9A66B;}
+  .signout:hover{border-color:var(--gold); color:var(--gold);}
 
   .main{max-width:1080px; margin:0 auto; padding:28px 32px 80px;}
 
@@ -76,8 +77,8 @@
   .controls input[type=text]{flex:1; min-width:180px; padding:9px 12px; border:1px solid var(--line); border-radius:7px; font-size:13.5px; font-family:'Inter',sans-serif; color:var(--ink);}
   .controls select{padding:9px 10px; border:1px solid var(--line); border-radius:7px; font-size:13px; font-family:'Inter',sans-serif; background:#fff; color:var(--ink);}
   .controls .spacer{flex:1;}
-  .add-btn{padding:9px 16px; border-radius:7px; border:1px solid var(--maroon); background:var(--maroon); color:#fff; font-size:13.5px; font-weight:500; cursor:pointer; white-space:nowrap;}
-  .add-btn:hover{background:var(--maroon-deep);}
+  .add-btn{padding:9px 16px; border-radius:7px; border:1px solid var(--green); background:var(--green); color:#fff; font-size:13.5px; font-weight:500; cursor:pointer; white-space:nowrap;}
+  .add-btn:hover{background:var(--green-deep);}
 
   .empty{text-align:center; padding:60px 20px; color:var(--ink-soft); background:var(--card); border:1px dashed var(--line); border-radius:12px;}
   .empty .display{font-size:18px; color:var(--ink); margin-bottom:6px;}
@@ -85,12 +86,12 @@
   .card-list{display:flex; flex-direction:column; gap:10px;}
   .rec-card{background:var(--card); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
   .rec-head{display:flex; align-items:center; gap:16px; padding:14px 18px; cursor:pointer; flex-wrap:wrap;}
-  .rec-num{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--maroon); background:#FBEFE9; padding:4px 9px; border-radius:6px; white-space:nowrap;}
+  .rec-num{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--green-deep); background:var(--green-bg); padding:4px 9px; border-radius:6px; white-space:nowrap;}
   .rec-num.missing{color:var(--muted); background:#EFEBE1; font-style:italic;}
   .rec-name{font-family:'Fraunces',serif; font-size:16.5px; font-weight:500; flex:1; min-width:120px;}
   .rec-meta{font-size:12.5px; color:var(--ink-soft); white-space:nowrap;}
   .doc-stamp{display:flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:12px; padding:5px 10px; border-radius:20px; white-space:nowrap;}
-  .doc-stamp.complete{background:var(--green-bg); color:var(--green);}
+  .doc-stamp.complete{background:var(--green-bg); color:var(--green-deep);}
   .doc-stamp.partial{background:var(--amber-bg); color:var(--amber);}
   .doc-stamp.empty-stamp{background:var(--red-bg); color:var(--red);}
   .chevron{color:var(--muted); font-size:14px; transition:transform .15s ease;}
@@ -107,23 +108,24 @@
   .docs-grid{display:flex; flex-direction:column; gap:8px;}
   .doc-row{display:flex; align-items:center; gap:10px; padding:9px 12px; background:#fff; border:1px solid var(--line); border-radius:8px; font-size:13px; flex-wrap:wrap;}
   .doc-row.checked{border-color:var(--green); background:var(--green-bg);}
+  .doc-row.doc-sub{margin-left:26px; background:#FBFAF6;}
   .doc-check{width:18px;height:18px; border-radius:4px; border:1.5px solid var(--muted); display:flex;align-items:center;justify-content:center; flex-shrink:0; cursor:pointer; font-size:11px; color:#fff;}
   .doc-row.checked .doc-check{background:var(--green); border-color:var(--green);}
   .doc-row.view .doc-check{cursor:default;}
-  .doc-label{flex:1; min-width:120px;}
+  .doc-label{flex:1; min-width:140px;}
   .doc-file-actions{display:flex; align-items:center; gap:8px; margin-left:auto; flex-wrap:wrap;}
-  .doc-file-link{font-size:12px; color:var(--maroon); text-decoration:underline; cursor:pointer; display:flex; align-items:center; gap:4px; white-space:nowrap;}
-  .doc-file-link:hover{color:var(--maroon-deep);}
+  .doc-file-link{font-size:12px; color:var(--green-deep); text-decoration:underline; cursor:pointer; display:flex; align-items:center; gap:4px; white-space:nowrap;}
+  .doc-file-link:hover{color:var(--green);}
   .doc-link-form{display:flex; align-items:center; gap:6px;}
   .doc-link-input{padding:6px 9px; border:1px solid var(--line); border-radius:6px; font-size:12px; font-family:'Inter',sans-serif; color:var(--ink); width:190px; background:#fff;}
-  .doc-link-input:focus{outline:2px solid var(--maroon); outline-offset:1px;}
-  .doc-link-save{font-size:12px; color:#fff; background:var(--maroon); border:1px solid var(--maroon); padding:6px 11px; border-radius:6px; cursor:pointer; white-space:nowrap;}
-  .doc-link-save:hover{background:var(--maroon-deep);}
+  .doc-link-input:focus{outline:2px solid var(--green); outline-offset:1px;}
+  .doc-link-save{font-size:12px; color:#fff; background:var(--green); border:1px solid var(--green); padding:6px 11px; border-radius:6px; cursor:pointer; white-space:nowrap;}
+  .doc-link-save:hover{background:var(--green-deep);}
   .doc-remove{font-size:11.5px; color:var(--red); cursor:pointer; text-decoration:underline; white-space:nowrap;}
 
   .rec-actions{margin-top:18px; display:flex; gap:10px;}
   .mini-btn{padding:7px 14px; border-radius:7px; font-size:12.5px; cursor:pointer; font-family:'Inter',sans-serif; border:1px solid var(--line); background:#fff; color:var(--ink);}
-  .mini-btn:hover{border-color:var(--maroon); color:var(--maroon);}
+  .mini-btn:hover{border-color:var(--green); color:var(--green-deep);}
   .mini-btn.danger:hover{border-color:var(--red); color:var(--red);}
 
   .modal-overlay{position:fixed; inset:0; background:rgba(27,42,74,.45); display:none; align-items:flex-start; justify-content:center; padding:40px 16px; overflow-y:auto; z-index:50;}
@@ -136,7 +138,7 @@
   .field label{display:block; font-size:12px; color:var(--ink-soft); font-weight:500; margin-bottom:5px;}
   .field .hint{font-weight:400; color:var(--muted); font-style:italic;}
   .field input, .field select{width:100%; padding:9px 11px; border:1px solid var(--line); border-radius:7px; font-size:13.5px; font-family:'Inter',sans-serif; color:var(--ink); background:#fff;}
-  .field input:focus, .field select:focus{outline:2px solid var(--maroon); outline-offset:1px;}
+  .field input:focus, .field select:focus{outline:2px solid var(--green); outline-offset:1px;}
   .modal-actions{display:flex; gap:10px; justify-content:flex-end;}
   .modal-actions .btn, .modal-actions .mini-btn{width:auto;}
   .field-error{border-color:var(--red) !important;}
@@ -172,26 +174,22 @@ if(!CONFIG_IS_PLACEHOLDER){
 }
 
 const DOC_KEYS = [
-  {k:'biodata', l:'Biodata'},
-  {k:'birthCert', l:'Birth Certificate'},
-  {k:'appForm', l:'Application Form'},
-  {k:'tor', l:'TOR'},
-  {k:'permRecord', l:'Student Permanent Record'},
-  {k:'certCompletion', l:'Certificate of Completion'},
-  {k:'rleSummary', l:'RLE Summary'},
-  {k:'certGrades', l:'Certificate of Grades'}
+  {k:'personalRecord', l:'Personal Record'},
+  {k:'academicRecord', l:'Academic Record'},
+  {k:'completionCert', l:'Completion and Certification Records'},
+  {k:'rleClinical', l:'RLE / Clinical Records'},
+  {k:'clinicalProcedure', l:'Clinical Procedure Records', sub:true},
+  {k:'others', l:'Others'}
 ];
 
 let state = {
   screen: CONFIG_IS_PLACEHOLDER ? 'setup' : 'role',
   role:null,
-  viewerName:'',
   students:[],
+  studentRecord:null,
   search:'',
-  filterSex:'all',
   filterYear:'all',
-  filterDocs:'all',
-  sortKey:'name',
+  sortKey:'yearGraduated',
   sortDir:'asc',
   openId:null,
   loginErr:''
@@ -245,6 +243,23 @@ function startListening(){
     .subscribe();
 }
 
+function startStudentListening(id){
+  channel = sb.channel('student-'+id)
+    .on('postgres_changes', {event:'*', schema:'public', table:'students', filter:'id=eq.'+id}, (payload) => {
+      if(payload.eventType === 'DELETE'){
+        state.studentRecord = null;
+        state.screen = 'role';
+        render();
+        return;
+      }
+      if(payload.new && payload.new.data){
+        state.studentRecord = {...payload.new.data, id: payload.new.id, documents: normalizeDocs(payload.new.data.documents)};
+        if(state.screen === 'studentView') render();
+      }
+    })
+    .subscribe();
+}
+
 function stopListening(){
   if(channel){ sb.removeChannel(channel); channel = null; }
 }
@@ -255,7 +270,8 @@ function render(){
   if(state.screen === 'setup') return renderSetup();
   if(state.screen === 'role') return renderRole();
   if(state.screen === 'adminLogin') return renderAdminLogin();
-  if(state.screen === 'viewerEntry') return renderViewerEntry();
+  if(state.screen === 'studentLogin') return renderStudentLogin();
+  if(state.screen === 'studentView') return renderStudentView();
   if(state.screen === 'dashboard') return renderDashboard();
 }
 
@@ -282,18 +298,18 @@ function renderRole(){
         <div class="role-card" id="pick-admin">
           <span class="tag">Registrar</span>
           <h3>Admin</h3>
-          <p>Add, edit and update student records, link documents, and manage the checklist. One admin account, password protected.</p>
+          <p>Add, edit and update student records, link documents, manage the checklist, and set each student's personal access password.</p>
         </div>
-        <div class="role-card" id="pick-viewer">
-          <span class="tag">Read only</span>
-          <h3>Viewer</h3>
-          <p>Browse, search and open linked documents. No editing. Anyone can enter as a viewer.</p>
+        <div class="role-card" id="pick-student">
+          <span class="tag">Personal record</span>
+          <h3>Student</h3>
+          <p>Enter your password to view only your own information and document checklist. No access to the full list.</p>
         </div>
       </div>
     </div>
   `;
   document.getElementById('pick-admin').onclick = () => { state.screen='adminLogin'; state.loginErr=''; render(); };
-  document.getElementById('pick-viewer').onclick = () => { state.screen='viewerEntry'; state.loginErr=''; render(); };
+  document.getElementById('pick-student').onclick = () => { state.screen='studentLogin'; state.loginErr=''; render(); };
 }
 
 function renderAdminLogin(){
@@ -317,7 +333,11 @@ function renderAdminLogin(){
     const val = document.getElementById('pw').value;
     if(!val){ state.loginErr = 'Enter a password.'; render(); return; }
     if(val === ADMIN_PASSWORD){
-      enterDashboard('admin');
+      state.role = 'admin';
+      state.screen = 'dashboard';
+      state.loginErr = '';
+      render();
+      startListening();
     } else {
       state.loginErr = "That password doesn't match. Try again.";
       render();
@@ -325,37 +345,104 @@ function renderAdminLogin(){
   };
 }
 
-function renderViewerEntry(){
+function renderStudentLogin(){
   root.innerHTML = `
     <div class="gate">
-      <div class="gate-mark display">V</div>
-      <h1>Viewer sign-in</h1>
-      <p class="sub">Enter a display name to continue. No password needed — viewers can only look up records.</p>
-      <form id="viewer-form">
-        <label for="vname">Your name</label>
-        <input type="text" id="vname" placeholder="e.g. Juan Dela Cruz" autocomplete="name" />
+      <div class="gate-mark display">S</div>
+      <h1>Student sign-in</h1>
+      <p class="sub">Enter the password given to you by the registrar to view your own record.</p>
+      <form id="student-login-form">
+        <label for="spw">Password</label>
+        <input type="password" id="spw" placeholder="Enter your password" autocomplete="current-password" />
         ${state.loginErr ? `<div class="err-text">${state.loginErr}</div>` : ''}
-        <button type="submit" class="btn">Continue as viewer</button>
+        <button type="submit" class="btn" id="student-login-submit">View my record</button>
       </form>
       <div class="back-link" id="back">Back</div>
     </div>
   `;
   document.getElementById('back').onclick = () => { state.screen='role'; render(); };
-  document.getElementById('viewer-form').onsubmit = (e) => {
+  document.getElementById('student-login-form').onsubmit = async (e) => {
     e.preventDefault();
-    const val = document.getElementById('vname').value.trim();
-    if(!val){ state.loginErr = 'Enter a name to continue.'; render(); return; }
-    state.viewerName = val;
-    enterDashboard('viewer');
+    const val = document.getElementById('spw').value;
+    if(!val){ state.loginErr = 'Enter your password.'; render(); return; }
+    const btn = document.getElementById('student-login-submit');
+    btn.disabled = true; btn.textContent = 'Checking...';
+    try{
+      const {data, error} = await sb.from('students').select('*');
+      if(error) throw error;
+      const match = data.find(row => row.data && row.data.password && row.data.password === val);
+      if(!match){
+        state.loginErr = "That password doesn't match any record.";
+        render();
+        return;
+      }
+      state.studentRecord = {...match.data, id: match.id, documents: normalizeDocs(match.data.documents)};
+      state.screen = 'studentView';
+      state.loginErr = '';
+      render();
+      startStudentListening(match.id);
+    }catch(err){
+      console.error('Student login failed:', err);
+      state.loginErr = "Couldn't reach the database. Check your connection.";
+      render();
+    }
   };
 }
 
-function enterDashboard(role){
-  state.role = role;
-  state.screen = 'dashboard';
-  state.loginErr='';
+function renderStudentView(){
+  const s = state.studentRecord;
+  if(!s){ state.screen='role'; return render(); }
+  const count = docsCompleteCount(s);
+  const total = DOC_KEYS.length;
+  const stampClass = count === total ? 'complete' : (count === 0 ? 'empty-stamp' : 'partial');
+
+  root.innerHTML = `
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark display">R</div>
+        <div>
+          <h1>Student Records Registry</h1>
+          <span class="role-pill">Student portal</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <span class="sync-dot"><span class="dot"></span>Synced</span>
+        <button class="signout" id="signout">Sign out</button>
+      </div>
+    </div>
+    <div class="main">
+      <div class="rec-card open">
+        <div class="rec-head" style="cursor:default;">
+          <span class="rec-num mono ${s.studentNumber ? '' : 'missing'}">${s.studentNumber ? escapeHtml(s.studentNumber) : 'No student number'}</span>
+          <span class="rec-name">${escapeHtml(s.name||'Unnamed student')}</span>
+          <span class="rec-meta">${escapeHtml(s.sex||'—')} · Graduated ${s.yearGraduated||'—'}</span>
+          <span class="doc-stamp ${stampClass}">${count}/${total} docs</span>
+        </div>
+        <div class="rec-body">
+          ${renderDetailGrid(s)}
+          <div class="docs-section">
+            <h4>Document checklist</h4>
+            <div class="docs-grid">
+              ${DOC_KEYS.map(dk => renderDocRow(s, dk, false)).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  document.getElementById('signout').onclick = studentSignOut;
+  DOC_KEYS.forEach(dk => {
+    const link = document.getElementById('view-'+s.id+'-'+dk.k);
+    if(link) link.onclick = () => window.open(s.documents[dk.k].fileURL, '_blank', 'noopener');
+  });
+}
+
+function studentSignOut(){
+  stopListening();
+  state.studentRecord = null;
+  state.screen = 'role';
+  state.loginErr = '';
   render();
-  startListening();
 }
 
 function getFilteredSorted(){
@@ -367,17 +454,8 @@ function getFilteredSorted(){
       (s.studentNumber||'').toLowerCase().includes(q)
     );
   }
-  if(state.filterSex !== 'all') list = list.filter(s => s.sex === state.filterSex);
-  if(state.filterYear !== 'all') list = list.filter(s => String(s.yearAdmitted) === state.filterYear);
-  if(state.filterDocs !== 'all'){
-    list = list.filter(s => {
-      const c = docsCompleteCount(s);
-      if(state.filterDocs === 'complete') return c === DOC_KEYS.length;
-      if(state.filterDocs === 'partial') return c > 0 && c < DOC_KEYS.length;
-      if(state.filterDocs === 'none') return c === 0;
-      return true;
-    });
-  }
+  if(state.filterYear !== 'all') list = list.filter(s => String(s.yearGraduated) === state.filterYear);
+
   list.sort((a,b) => {
     let av, bv;
     if(state.sortKey === 'name'){ av=(a.name||'').toLowerCase(); bv=(b.name||'').toLowerCase(); }
@@ -385,28 +463,40 @@ function getFilteredSorted(){
       av = a.studentNumber ? a.studentNumber.toLowerCase() : '\uffff';
       bv = b.studentNumber ? b.studentNumber.toLowerCase() : '\uffff';
     }
-    else if(state.sortKey === 'yearAdmitted'){ av=a.yearAdmitted||0; bv=b.yearAdmitted||0; }
     else if(state.sortKey === 'yearGraduated'){ av=a.yearGraduated||0; bv=b.yearGraduated||0; }
     else if(state.sortKey === 'docs'){ av=docsCompleteCount(a); bv=docsCompleteCount(b); }
+
     if(av < bv) return state.sortDir === 'asc' ? -1 : 1;
     if(av > bv) return state.sortDir === 'asc' ? 1 : -1;
+
+    const an=(a.name||'').toLowerCase(), bn=(b.name||'').toLowerCase();
+    if(an < bn) return -1;
+    if(an > bn) return 1;
     return 0;
   });
   return list;
 }
 
-function getAdmittedYears(){
-  const years = new Set(state.students.map(s => s.yearAdmitted).filter(Boolean));
-  return [...years].sort((a,b) => b-a);
+function getGraduatedYears(){
+  const years = new Set(state.students.map(s => s.yearGraduated).filter(Boolean));
+  return [...years].sort((a,b) => a-b);
 }
 
 function renderDashboard(){
   const list = getFilteredSorted();
-  const years = getAdmittedYears();
-  const isAdmin = state.role === 'admin';
+  const years = getGraduatedYears();
   const total = state.students.length;
-  const complete = state.students.filter(s => docsCompleteCount(s) === DOC_KEYS.length).length;
-  const incomplete = total - complete;
+
+  const yearCounts = {};
+  state.students.forEach(s => {
+    const y = s.yearGraduated || 'Unspecified';
+    yearCounts[y] = (yearCounts[y]||0) + 1;
+  });
+  const yearEntries = Object.entries(yearCounts).sort((a,b) => {
+    if(a[0] === 'Unspecified') return 1;
+    if(b[0] === 'Unspecified') return -1;
+    return Number(a[0]) - Number(b[0]);
+  });
 
   root.innerHTML = `
     <div class="topbar">
@@ -414,44 +504,32 @@ function renderDashboard(){
         <div class="brand-mark display">R</div>
         <div>
           <h1>Student Records Registry</h1>
-          <span class="role-pill">${isAdmin ? 'Admin · editing enabled' : 'Viewer · read only'}</span>
+          <span class="role-pill">Admin · editing enabled</span>
         </div>
       </div>
       <div class="topbar-right">
         <span class="sync-dot"><span class="dot"></span>Synced</span>
-        ${!isAdmin ? `<span class="topbar-user">${escapeHtml(state.viewerName)}</span>` : ''}
         <button class="signout" id="signout">Sign out</button>
       </div>
     </div>
     <div class="main">
       <div class="stats-row">
         <div class="stat"><div class="num">${total}</div><div class="lbl">Total students</div></div>
-        <div class="stat"><div class="num">${complete}</div><div class="lbl">Complete records</div></div>
-        <div class="stat"><div class="num">${incomplete}</div><div class="lbl">Incomplete records</div></div>
+        ${yearEntries.map(([year,count]) => `
+          <div class="stat"><div class="num">${count}</div><div class="lbl">${year === 'Unspecified' ? 'No year set' : 'Class of ' + year}</div></div>
+        `).join('')}
       </div>
 
       <div class="controls">
         <input type="text" id="search" placeholder="Search by name or student number" value="${escapeHtml(state.search)}" />
-        <select id="filterSex">
-          <option value="all">All sexes</option>
-          <option value="Male" ${state.filterSex==='Male'?'selected':''}>Male</option>
-          <option value="Female" ${state.filterSex==='Female'?'selected':''}>Female</option>
-        </select>
         <select id="filterYear">
-          <option value="all">All years admitted</option>
+          <option value="all">All years graduated</option>
           ${years.map(y => `<option value="${y}" ${state.filterYear===String(y)?'selected':''}>${y}</option>`).join('')}
         </select>
-        <select id="filterDocs">
-          <option value="all">All document statuses</option>
-          <option value="complete" ${state.filterDocs==='complete'?'selected':''}>Complete</option>
-          <option value="partial" ${state.filterDocs==='partial'?'selected':''}>Partial</option>
-          <option value="none" ${state.filterDocs==='none'?'selected':''}>None submitted</option>
-        </select>
         <select id="sortKey">
+          <option value="yearGraduated" ${state.sortKey==='yearGraduated'?'selected':''}>Sort: Year graduated</option>
           <option value="name" ${state.sortKey==='name'?'selected':''}>Sort: Name</option>
           <option value="studentNumber" ${state.sortKey==='studentNumber'?'selected':''}>Sort: Student number</option>
-          <option value="yearAdmitted" ${state.sortKey==='yearAdmitted'?'selected':''}>Sort: Year admitted</option>
-          <option value="yearGraduated" ${state.sortKey==='yearGraduated'?'selected':''}>Sort: Year graduated</option>
           <option value="docs" ${state.sortKey==='docs'?'selected':''}>Sort: Documents complete</option>
         </select>
         <select id="sortDir">
@@ -459,17 +537,17 @@ function renderDashboard(){
           <option value="desc" ${state.sortDir==='desc'?'selected':''}>Descending</option>
         </select>
         <div class="spacer"></div>
-        ${isAdmin ? `<button class="add-btn" id="add-student"><i class="ti ti-plus"></i> Add student</button>` : ''}
+        <button class="add-btn" id="add-student"><i class="ti ti-plus"></i> Add student</button>
       </div>
 
       ${list.length === 0 ? `
         <div class="empty">
           <div class="display">No students found</div>
-          <div>${total === 0 ? 'The registry is empty.' + (isAdmin ? ' Add your first student to get started.' : '') : 'Try adjusting your search or filters.'}</div>
+          <div>${total === 0 ? 'The registry is empty. Add your first student to get started.' : 'Try adjusting your search or filters.'}</div>
         </div>
       ` : `
         <div class="card-list">
-          ${list.map(s => renderCard(s, isAdmin)).join('')}
+          ${list.map(s => renderCard(s, true)).join('')}
         </div>
       `}
     </div>
@@ -478,14 +556,12 @@ function renderDashboard(){
     </div>
   `;
 
-  document.getElementById('signout').onclick = signOut;
+  document.getElementById('signout').onclick = adminSignOut;
   document.getElementById('search').oninput = (e) => { state.search = e.target.value; render(); refocusSearch(); };
-  document.getElementById('filterSex').onchange = (e) => { state.filterSex = e.target.value; render(); };
   document.getElementById('filterYear').onchange = (e) => { state.filterYear = e.target.value; render(); };
-  document.getElementById('filterDocs').onchange = (e) => { state.filterDocs = e.target.value; render(); };
   document.getElementById('sortKey').onchange = (e) => { state.sortKey = e.target.value; render(); };
   document.getElementById('sortDir').onchange = (e) => { state.sortDir = e.target.value; render(); };
-  if(isAdmin) document.getElementById('add-student').onclick = () => openModal(null);
+  document.getElementById('add-student').onclick = () => openModal(null);
 
   list.forEach(s => {
     const headEl = document.getElementById('head-'+s.id);
@@ -496,26 +572,24 @@ function renderDashboard(){
       if(link) link.onclick = (e) => { e.stopPropagation(); window.open(s.documents[dk.k].fileURL, '_blank', 'noopener'); };
     });
 
-    if(isAdmin){
-      const editBtn = document.getElementById('edit-'+s.id);
-      if(editBtn) editBtn.onclick = (e) => { e.stopPropagation(); openModal(s.id); };
-      const delBtn = document.getElementById('del-'+s.id);
-      if(delBtn) delBtn.onclick = (e) => { e.stopPropagation(); deleteStudent(s.id); };
-      DOC_KEYS.forEach(dk => {
-        const box = document.getElementById('doc-'+s.id+'-'+dk.k);
-        if(box) box.onclick = (e) => { e.stopPropagation(); toggleDocChecked(s, dk.k); };
-        const linkForm = document.getElementById('linkform-'+s.id+'-'+dk.k);
-        if(linkForm) linkForm.onsubmit = (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const input = document.getElementById('linkinput-'+s.id+'-'+dk.k);
-          const url = input.value.trim();
-          if(url) saveDocLink(s, dk.k, url);
-        };
-        const removeBtn = document.getElementById('rm-'+s.id+'-'+dk.k);
-        if(removeBtn) removeBtn.onclick = (e) => { e.stopPropagation(); removeDoc(s, dk.k); };
-      });
-    }
+    const editBtn = document.getElementById('edit-'+s.id);
+    if(editBtn) editBtn.onclick = (e) => { e.stopPropagation(); openModal(s.id); };
+    const delBtn = document.getElementById('del-'+s.id);
+    if(delBtn) delBtn.onclick = (e) => { e.stopPropagation(); deleteStudent(s.id); };
+    DOC_KEYS.forEach(dk => {
+      const box = document.getElementById('doc-'+s.id+'-'+dk.k);
+      if(box) box.onclick = (e) => { e.stopPropagation(); toggleDocChecked(s, dk.k); };
+      const linkForm = document.getElementById('linkform-'+s.id+'-'+dk.k);
+      if(linkForm) linkForm.onsubmit = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const input = document.getElementById('linkinput-'+s.id+'-'+dk.k);
+        const url = input.value.trim();
+        if(url) saveDocLink(s, dk.k, url);
+      };
+      const removeBtn = document.getElementById('rm-'+s.id+'-'+dk.k);
+      if(removeBtn) removeBtn.onclick = (e) => { e.stopPropagation(); removeDoc(s, dk.k); };
+    });
   });
 }
 
@@ -534,7 +608,7 @@ function renderCard(s, isAdmin){
       <div class="rec-head" id="head-${s.id}">
         <span class="rec-num mono ${s.studentNumber ? '' : 'missing'}">${s.studentNumber ? escapeHtml(s.studentNumber) : 'No student number'}</span>
         <span class="rec-name">${escapeHtml(s.name||'Unnamed student')}</span>
-        <span class="rec-meta">${escapeHtml(s.sex||'—')} · Admitted ${s.yearAdmitted||'—'}</span>
+        <span class="rec-meta">${escapeHtml(s.sex||'—')} · Graduated ${s.yearGraduated||'—'}</span>
         <span class="doc-stamp ${stampClass}">${count}/${total} docs</span>
         <span class="chevron"><i class="ti ti-chevron-right"></i></span>
       </div>
@@ -561,7 +635,7 @@ function renderDocRow(s, dk, isAdmin){
   const doc = s.documents[dk.k];
   const checked = doc.checked;
   return `
-    <div class="doc-row ${checked?'checked':''} ${isAdmin?'':'view'}">
+    <div class="doc-row ${checked?'checked':''} ${isAdmin?'':'view'} ${dk.sub?'doc-sub':''}">
       <span class="doc-check" id="${isAdmin? 'doc-'+s.id+'-'+dk.k : ''}">${checked?'<i class="ti ti-check"></i>':''}</span>
       <span class="doc-label">${dk.l}</span>
       <div class="doc-file-actions">
@@ -582,8 +656,8 @@ function renderDetailGrid(s){
   const items = [
     ['Sex', s.sex], ['Date of birth', s.dob], ['Contact number', s.contactNumber],
     ['Email address', s.email], ['Provincial address', s.provincialAddress],
-    ['City address', s.cityAddress], ['Year admitted', s.yearAdmitted],
-    ['Year of residency', s.yearResidency], ['Year graduated', s.yearGraduated],
+    ['City address', s.cityAddress], ['Year graduated', s.yearGraduated],
+    ['Year of residency', s.yearResidency],
   ];
   return `<div class="detail-grid">
     ${items.map(([k,v]) => `
@@ -627,7 +701,7 @@ async function deleteStudent(id){
 function openModal(id){
   const s = id ? state.students.find(x => x.id === id) : {
     id: uid(), studentNumber:'', name:'', sex:'', dob:'', contactNumber:'', email:'',
-    provincialAddress:'', cityAddress:'', yearAdmitted:'', yearResidency:'', yearGraduated:'',
+    provincialAddress:'', cityAddress:'', yearGraduated:'', yearResidency:'', password:'',
     documents: emptyDocs()
   };
   const overlay = document.getElementById('modal-overlay');
@@ -643,6 +717,7 @@ function openModal(id){
 }
 
 function renderModalForm(s, isEdit){
+  const residencyOptions = ['1','2','3','4','5','6'];
   return `
     <h2>${isEdit ? 'Edit student record' : 'Add student record'}</h2>
     <p class="modal-sub">${isEdit ? "Update this student's information." : "Fill in the student's information below. Document links are managed from the record card after saving."}</p>
@@ -662,9 +737,14 @@ function renderModalForm(s, isEdit){
         <div class="field"><label>Email address</label><input type="text" id="f-email" value="${escapeAttr(s.email)}" placeholder="name@email.com" /></div>
         <div class="field full"><label>Provincial address</label><input type="text" id="f-provincialAddress" value="${escapeAttr(s.provincialAddress)}" /></div>
         <div class="field full"><label>City address</label><input type="text" id="f-cityAddress" value="${escapeAttr(s.cityAddress)}" /></div>
-        <div class="field"><label>Year admitted</label><input type="text" id="f-yearAdmitted" value="${escapeAttr(s.yearAdmitted)}" placeholder="2021" /></div>
-        <div class="field"><label>Year of residency</label><input type="text" id="f-yearResidency" value="${escapeAttr(s.yearResidency)}" placeholder="2023" /></div>
         <div class="field"><label>Year graduated</label><input type="text" id="f-yearGraduated" value="${escapeAttr(s.yearGraduated)}" placeholder="2025" /></div>
+        <div class="field"><label>Year of residency <span class="hint">(level)</span></label>
+          <select id="f-yearResidency">
+            <option value="" ${!s.yearResidency?'selected':''}>Select</option>
+            ${residencyOptions.map(o => `<option value="${o}" ${String(s.yearResidency)===o?'selected':''}>${o}</option>`).join('')}
+          </select>
+        </div>
+        <div class="field full"><label>Student portal password <span class="hint">(the student uses this to view only their own record)</span></label><input type="text" id="f-password" value="${escapeAttr(s.password)}" placeholder="e.g. stud1" /></div>
       </div>
       <div id="form-err-holder"></div>
       <div class="modal-actions">
@@ -683,14 +763,22 @@ async function saveFromForm(s, isEdit){
   const val = id => document.getElementById(id).value.trim();
   const studentNumber = val('f-studentNumber');
   const name = val('f-name');
+  const password = val('f-password');
 
   const errHolder = document.getElementById('form-err-holder');
   document.getElementById('f-name').classList.remove('field-error');
   document.getElementById('f-studentNumber').classList.remove('field-error');
+  document.getElementById('f-password').classList.remove('field-error');
 
   if(!name){
     errHolder.innerHTML = `<div class="form-err">Full name is required.</div>`;
     document.getElementById('f-name').classList.add('field-error');
+    return;
+  }
+
+  if(!password){
+    errHolder.innerHTML = `<div class="form-err">A student portal password is required so this student can view their own record.</div>`;
+    document.getElementById('f-password').classList.add('field-error');
     return;
   }
 
@@ -703,17 +791,23 @@ async function saveFromForm(s, isEdit){
     }
   }
 
+  const dupePw = state.students.find(x => x.password === password && x.id !== s.id);
+  if(dupePw){
+    errHolder.innerHTML = `<div class="form-err">That password is already used by another student. Choose a unique one.</div>`;
+    document.getElementById('f-password').classList.add('field-error');
+    return;
+  }
+
   const studentData = {
-    studentNumber, name,
+    studentNumber, name, password,
     sex: document.getElementById('f-sex').value,
     dob: document.getElementById('f-dob').value,
     contactNumber: val('f-contactNumber'),
     email: val('f-email'),
     provincialAddress: val('f-provincialAddress'),
     cityAddress: val('f-cityAddress'),
-    yearAdmitted: val('f-yearAdmitted'),
-    yearResidency: val('f-yearResidency'),
     yearGraduated: val('f-yearGraduated'),
+    yearResidency: document.getElementById('f-yearResidency').value,
     documents: s.documents
   };
 
@@ -726,16 +820,13 @@ async function saveFromForm(s, isEdit){
   closeModal();
 }
 
-function signOut(){
+function adminSignOut(){
   stopListening();
   state.role = null;
-  state.viewerName = '';
   state.screen = 'role';
   state.openId = null;
   state.search='';
-  state.filterSex='all';
   state.filterYear='all';
-  state.filterDocs='all';
   render();
 }
 
