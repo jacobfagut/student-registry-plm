@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Student Records Registry</title>
+<title>NurSync</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/1.33.0/iconfont/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
@@ -290,8 +290,10 @@ function renderSetup(){
 function renderRole(){
   root.innerHTML = `
     <div class="gate">
-      <div class="gate-mark display">R</div>
-      <h1>Student Records Registry</h1>
+      <div class="gate-mark display">
+      <img src="logo.png">
+      </div>
+      <h1>NurSync</h1>
       <p class="sub">A shared inventory of student information and document status. Choose how you're signing in.</p>
       <div class="role-cards">
         <div class="role-card" id="pick-admin">
@@ -398,9 +400,11 @@ function renderStudentView(){
   root.innerHTML = `
     <div class="topbar">
       <div class="brand">
-        <div class="brand-mark display">R</div>
+        <div class="brand-mark display">
+        <img src="logo.png">
+        </div>
         <div>
-          <h1>Student Records Registry</h1>
+          <h1>NurSync</h1>
           <span class="role-pill">Student portal</span>
         </div>
       </div>
@@ -500,9 +504,11 @@ function renderDashboard(){
   root.innerHTML = `
     <div class="topbar">
       <div class="brand">
-        <div class="brand-mark display">R</div>
+        <div class="brand-mark display">
+        <img src="logo.png">
+        </div>
         <div>
-          <h1>Student Records Registry</h1>
+          <h1>NurSync</h1>
           <span class="role-pill">Admin · editing enabled</span>
         </div>
       </div>
