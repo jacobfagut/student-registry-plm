@@ -749,7 +749,7 @@ function renderModalForm(s, isEdit){
             ${residencyOptions.map(o => `<option value="${o}" ${String(s.yearResidency)===o?'selected':''}>${o}</option>`).join('')}
           </select>
         </div>
-        <div class="field full"><label>Student portal password <span class="hint">(the student uses this to view only their own record)</span></label><input type="text" id="f-password" value="${escapeAttr(s.password)}" placeholder="e.g. stud1" /></div>
+        <div class="field full"><label>Student portal password <span class="hint">(the student uses this to view only their own record)</span></label><input type="text" id="f-password" value="${escapeAttr(s.password)}" placeholder="Input your password" /></div>
       </div>
       <div id="form-err-holder"></div>
       <div class="modal-actions">
